@@ -119,7 +119,9 @@ const App: React.FC = () => {
           </div>
         )}
       </nav>
-
+          <Routes>
+          <Route path="/admin" element={<BoardAdmin />} />
+          </Routes>
       <div className="container mt-3">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -129,7 +131,7 @@ const App: React.FC = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/user" element={<BoardUser />} />
           <Route path="/mod" element={<BoardModerator />} />
-          <Route path="/admin" element={<BoardAdmin />} />
+          
         </Routes>
       </div>
     </div>

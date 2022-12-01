@@ -5,3 +5,9 @@ export default interface IUser {
     password: string,
     roles?: Array<string>
   }
+  export  interface ICustomer{
+    id?: any | null,
+    firstname:string,
+    lastname:string,
+    phone:string
+  }

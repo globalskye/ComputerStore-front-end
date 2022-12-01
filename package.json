@@ -3,8 +3,13 @@
   "version": "1.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@hookform/resolvers": "^2.9.10",
     "@material-ui/core": "^4.12.4",
+    "@mui/material": "^5.10.16",
+    "@mui/x-data-grid": "^5.17.13",
+    "@mui/x-data-grid-generator": "^5.17.13",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
@@ -15,6 +20,7 @@
     "bootstrap": "^4.6.2",
     "formik": "^2.2.9",
     "mdb-react-ui-kit": "^5.0.0",
+    "mui": "^0.0.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
@@ -25,7 +31,7 @@
     "vite": "^3.2.2",
     "web-vitals": "^2.1.0",
     "yup": "^0.32.11"
-  },  
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
