@@ -35,3 +35,6 @@ export const getCurrentUser = () => {
 
   return null;
 };
+export const getCurrentUserRole = () => {
+  
+}

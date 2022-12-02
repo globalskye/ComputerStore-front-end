@@ -121,6 +121,7 @@ const App: React.FC = () => {
       </nav>
           <Routes>
           <Route path="/admin" element={<BoardAdmin />} />
+          
           </Routes>
       <div className="container mt-3">
         <Routes>

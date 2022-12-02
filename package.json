@@ -7,9 +7,11 @@
     "@emotion/styled": "^11.10.5",
     "@hookform/resolvers": "^2.9.10",
     "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
     "@mui/material": "^5.10.16",
     "@mui/x-data-grid": "^5.17.13",
     "@mui/x-data-grid-generator": "^5.17.13",
+    "@mui/x-data-grid-pro": "^5.17.14",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
@@ -23,10 +25,15 @@
     "mui": "^0.0.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
+    "react-bootstrap-sidebar-menu": "^2.0.3",
+    "react-data-table-component": "^7.5.3",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.39.5",
-    "react-router-dom": "^6.4.3",
+    "react-icons": "^4.7.1",
+    "react-pro-sidebar": "^1.0.0-alpha.9",
+    "react-router-dom": "^6.4.4",
     "react-scripts": "5.0.1",
+    "styled-components": "^5.3.6",
     "typescript": "^4.4.2",
     "vite": "^3.2.2",
     "web-vitals": "^2.1.0",
@@ -58,6 +65,7 @@
   },
   "devDependencies": {
     "@types/react": "^18.0.25",
-    "@types/react-router-dom": "^5.3.3"
+    "@types/react-router-dom": "^5.3.3",
+    "@types/styled-components": "^5.1.26"
   }
 }
