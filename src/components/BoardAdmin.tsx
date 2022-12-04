@@ -2,9 +2,15 @@ import React, { useState, useEffect, useCallback } from "react";
 
 import { getBoard } from "../services/admin.service";
 import EventBus from "../common/EventBus";
-import { Menu, MenuItem, Sidebar, SubMenu, MenuItemStyles } from "react-pro-sidebar";
+import {
+  Menu,
+  MenuItem,
+  Sidebar,
+  SubMenu,
+  MenuItemStyles,
+} from "react-pro-sidebar";
 import styled from "styled-components";
-import DataTable from 'react-data-table-component';
+import DataTable from "react-data-table-component";
 
 import {
   DataGrid,
@@ -30,8 +36,6 @@ const style = {
 };
 
 const BoardAdmin: React.FC = () => {
- 
- 
   const [ids, setIds] = useState<any[]>();
   const [rows, setRows] = useState<any[]>([{ id: 1 }]);
   const [column, setColumn] = useState<GridColDef[]>();
@@ -99,10 +103,9 @@ const BoardAdmin: React.FC = () => {
   //         <MenuItem> E-commerce</MenuItem>
   //       </Menu>
   //     </Sidebar>
-     
+
   //   </div>
-      
-       
+
   //       <main>
   //       <form>
   //         <button
@@ -181,80 +184,85 @@ const BoardAdmin: React.FC = () => {
   //   );
   // }
   const Menuitem = styled(MenuItem)`
-  :hover {
-    background-color: #ffdb58;
-    padding: 5px;
-    border-radius: 10px;
-  }
-`;
-const columns = [
-  {
-      name: 'Title',
-      selector: (row: { title: any; }) => row.title,
+    :hover {
+      background-color: #ffdb58;
+      padding: 5px;
+      border-radius: 10px;
+    }
+  `;
+  const columns = [
+    {
+      name: "Title",
+      selector: (row: { title: any }) => row.title,
       sortable: true,
-  },
-  {
-      name: 'Year',
-      selector: (row: { year: any; }) => row.year,
-  },
-];
+    },
+    {
+      name: "Year",
+      selector: (row: { year: any }) => row.year,
+    },
+    {
+      name: "ae",
+      button: true,
+      selector: (row: { id: any }) => row.id,
+      cell: (row: any) => (
+        <button
+          onClick={() => {
+            console.log(row.id);
+          }}
+        >
+          fdd
+        </button>
+      ),
+    },
+  ];
 
-const data = [
-  {
+  const data = [
+    {
       id: 1,
-      title: 'Beetlejuice',
-      year: '1988',
-  },
-  {
+      title: "Beetlejuice",
+      year: "1988",
+    },
+    {
       id: 2,
-      title: 'Ghostbusters',
-      year: '1984',
-  },
-]
-//https://react-data-table-component.netlify.app/?path=/docs/pagination-basic--basic
-  return( 
-
-  
-  <div className="row">
-  <div className="col" >
-    
- 
-  <div style={{ display: 'flex', height: '100%', backgroundColor: '#D8D8D8' }}>
-      <Sidebar
-      style={{height:"145vh"}}
-      backgroundColor="grey">
-        <Menu >
-         <MenuItem style={{color:'black'}}> Documentation</MenuItem>
-         <Menuitem > Calendar</Menuitem>
-         
-         <SubMenu title="Components" >
-     
-    </SubMenu>
-        </Menu>
-        
-      </Sidebar>
-  
-    
+      title: "Ghostbusters",
+      year: "1984",
+    },
+  ];
+  //https://react-data-table-component.netlify.app/?path=/docs/pagination-basic--basic
+  return (
+    <div className="row">
       <div className="col">
-        <Container>
-        <DataTable
-            columns={columns}
-            data={data}
-            selectableRows
-            pagination
-            onSelectedRowsChange={(itm) =>console.log(itm)}
-        />
-        </Container>
-     
-</div>
-  
-  </div>
-</div>
-</div>
+        <div
+          style={{
+            display: "flex",
+            height: "100%",
+            backgroundColor: "#D8D8D8",
+          }}
+        >
+          <Sidebar style={{ height: "145vh" }} backgroundColor="grey">
+            <Menu>
+              <MenuItem style={{ color: "black" }}> Documentation</MenuItem>
+              <Menuitem> Calendar</Menuitem>
 
+              <SubMenu title="Components"></SubMenu>
+            </Menu>
+          </Sidebar>
 
-
-);
+          <div className="col">
+            <Container>
+              <DataTable
+                columns={columns}
+                data={data}
+                selectableRows
+                pagination
+                onSelectedRowsChange={(itm) => console.log(itm)}
+              />
+            </Container>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default BoardAdmin;
