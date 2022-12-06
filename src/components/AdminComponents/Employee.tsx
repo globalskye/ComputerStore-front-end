@@ -13,6 +13,7 @@ const AdminEmployee: React.FC = () => {
   useEffect(() => {
     getBoard("employee").then(
       (response) => {
+        console.log(response.data);
         setRows(response.data);
       },
       (error) => {
@@ -23,7 +24,7 @@ const AdminEmployee: React.FC = () => {
           error.message ||
           error.toString();
 
-        setRows(_content);
+        console.log(error)
 
         if (error.response && error.response.status === 401) {
           EventBus.dispatch("logout");

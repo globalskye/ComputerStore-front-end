@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Container } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import { AiFillDelete } from "react-icons/ai";
 import { FiEdit3 } from "react-icons/fi";
@@ -31,7 +31,7 @@ const AdminOrders: React.FC = () => {
       }
     );
   }, []);
-  const but = () => {
+  const but = (data: any) => {
     return (
       <>
       <button style={{padding:"1px", borderRadius:"5px", margin:"4px"}}><FiEdit3/></button>
@@ -39,24 +39,13 @@ const AdminOrders: React.FC = () => {
       </>
     )
   }
-  const image = (imag: any) =>{
-    return(
-        <>
-        <img
-              src={imag.image}
-              width={50}
-              height={50}
-              alt='Player'
-            />
-        </>
-    )
-  }
+ 
   const columns = [
     {
         name: "Actions",
         button: true,
         selector: (row: { id: any }) => row.id,
-        cell: (row: any) => but()
+        cell: (row: any) => but(row)
       },
     {
       name: "Date",

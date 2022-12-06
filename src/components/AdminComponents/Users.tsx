@@ -4,16 +4,18 @@ import DataTable from "react-data-table-component";
 import { AiFillDelete } from "react-icons/ai";
 import { FiEdit3 } from "react-icons/fi";
 import EventBus from "../../common/EventBus";
-import { getBoard } from "../../services/admin.service";
+import { deleteUserById, getBoard } from "../../services/admin.service";
 import SidebarView from "../SideBarView";
 
 
 const AdminUsers: React.FC = () => {
     const [rows, setRows] = useState<any[]>([{ id: 1 }]);
+    const [test, setTest] =useState<number>(1);
   useEffect(() => {
     getBoard("users").then(
       (response) => {
         setRows(response.data);
+        console.log(test)
       },
       (error) => {
         const _content =
@@ -31,20 +33,44 @@ const AdminUsers: React.FC = () => {
       }
     );
   }, []);
-  const but = () => {
+  const but = (id: number) => {
     return (
       <>
-      <button style={{padding:"1px", borderRadius:"5px", margin:"4px"}}><FiEdit3/></button>
-      <button style={{padding:"1px", borderRadius:"5px",margin:"4px"}}><AiFillDelete/></button>
+      <button style={{padding:"1px", borderRadius:"5px", margin:"4px"}}   ><FiEdit3/></button>
+      <button style={{padding:"1px", borderRadius:"5px",margin:"4px"}}onClick={()=>{deleteUser(id)}}><AiFillDelete/></button>
       </>
     )
+  }
+  const deleteUser= (id: number) => {
+    console.log(id);
+    deleteUserById(id).then(
+      (response) => {
+        console.log(response)
+        setRows((old)=>old.filter(item=>item.id!==id))
+    
+      },
+      (error) => {
+        const _content =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+       console.log(error)
+
+        if (error.response && error.response.status === 401) {
+          EventBus.dispatch("logout");
+        }
+      }
+    );
   }
   const columns = [
     {
       name: "Actions",
       button: true,
       selector: (row: { id: any }) => row.id,
-      cell: (row: any) => but()
+      cell: (row: any) => but(row.id)
     },
     {
       name: "Username",
@@ -68,18 +94,14 @@ const AdminUsers: React.FC = () => {
 
 
     return (
-        
-           
-              
-              
-                 
+       
                       <DataTable
                       pagination
                         columns={columns}
                         data={rows}
                        
                         
-                        onSelectedRowsChange={(itm) => console.log(itm)}
+                       
                       />
                  
     )

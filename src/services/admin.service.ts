@@ -10,3 +10,6 @@ export const getCustomerBoard = () => {
 export const getBoard = (board : string) => {
     return axios.get(API_URL+board +"/",{ headers: authHeader() })
 }
+export const deleteUserById = (id: number) => {
+  return axios.delete(API_URL +"users/" + id,{ headers: authHeader() })
+} 

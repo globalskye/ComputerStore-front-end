@@ -13,6 +13,7 @@ const AdminProducts: React.FC = () => {
   useEffect(() => {
     getBoard("product").then(
       (response) => {
+        console.log(response.data)
         setRows(response.data);
       },
       (error) => {
@@ -22,8 +23,8 @@ const AdminProducts: React.FC = () => {
             error.response.data.message) ||
           error.message ||
           error.toString();
-
-        setRows(_content);
+          console.log(error)
+        
 
         if (error.response && error.response.status === 401) {
           EventBus.dispatch("logout");
@@ -101,8 +102,6 @@ const AdminProducts: React.FC = () => {
                       pagination
                         columns={columns}
                         data={rows}
-                        
-                        
                       />
                    
              
