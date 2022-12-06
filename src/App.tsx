@@ -1,27 +1,21 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { Routes, Route, Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
-
-import * as AuthService from "./services/auth.service";
-import IUser from "./types/user.type";
-
-import Login from "./components/Login";
-import Register from "./components/Register";
-import Home from "./components/Home";
-import Profile from "./components/SideBarView";
-import BoardUser from "./components/BoardUser";
-import BoardModerator from "./components/BoardModerator";
-import BoardAdmin from "./components/BoardAdmin";
-
-import EventBus from "./common/EventBus";
-import AdminUsers from "./components/AdminComponents/Users";
-import AdminEmployee from "./components/AdminComponents/Employee";
-import AdminProducts from "./components/AdminComponents/Products";
-import SidebarView from "./components/SideBarView";
-import { Container } from "react-bootstrap";
-import AdminOrders from "./components/AdminComponents/Orders";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { Container } from 'react-bootstrap';
+import { Routes, Route, Link } from 'react-router-dom';
+import './App.css';
+import EventBus from './common/EventBus';
+import AdminEmployee from './components/AdminComponents/Employee';
+import AdminProducts from './components/AdminComponents/Products';
+import AdminUsers from './components/AdminComponents/Users';
+import BoardModerator from './components/BoardModerator';
+import BoardUser from './components/BoardUser';
+import Home from './components/Home';
+import Login from './components/Login';
+import Register from './components/Register';
+import SidebarView from './components/SideBarView';
+import * as AuthService from './services/auth.service';
+import IUser from './types/user.type';
 
 const App: React.FC = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState<boolean>(false);
@@ -37,10 +31,10 @@ const App: React.FC = () => {
       //setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
     }
 
-    EventBus.on("logout", logOut);
+    EventBus.on('logout', logOut);
 
     return () => {
-      EventBus.remove("logout", logOut);
+      EventBus.remove('logout', logOut);
     };
   }, []);
 
@@ -59,11 +53,8 @@ const App: React.FC = () => {
             <SidebarView></SidebarView>
           </div>
 
-          <div
-            className="col"
-            style={{ margin: "1%", backgroundColor: "#E3DAD8" }}
-          >
-            <Container style={{ marginTop: "2%" }}>
+          <div className="col" style={{ margin: '1%', backgroundColor: '#E3DAD8' }}>
+            <Container style={{ marginTop: '2%' }}>
               <Routes>
                 <Route path="/admin/users" element={<AdminUsers />} />
                 <Route path="/admin/employee" element={<AdminEmployee />} />
@@ -75,24 +66,24 @@ const App: React.FC = () => {
       </>
 
       <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <Link to={"/"} className="navbar-brand">
+        <Link to={'/'} className="navbar-brand">
           Course_Work
         </Link>
         <div className="navbar-nav mr-auto">
           <li className="nav-item">
-            <Link to={"/home"} className="nav-link">
+            <Link to={'/home'} className="nav-link">
               Home
             </Link>
           </li>
           <li className="nav-item">
-            <Link to={"/test"} className="nav-link">
+            <Link to={'/test'} className="nav-link">
               Test
             </Link>
           </li>
 
           {showModeratorBoard && (
             <li className="nav-item">
-              <Link to={"/mod"} className="nav-link">
+              <Link to={'/mod'} className="nav-link">
                 Moderator Board
               </Link>
             </li>
@@ -100,7 +91,7 @@ const App: React.FC = () => {
 
           {currentUser && (
             <li className="nav-item">
-              <Link to={"/user"} className="nav-link">
+              <Link to={'/user'} className="nav-link">
                 User
               </Link>
             </li>
@@ -119,13 +110,13 @@ const App: React.FC = () => {
         ) : (
           <div className="navbar-nav ml-auto">
             <li className="nav-item">
-              <Link to={"/login"} className="nav-link">
+              <Link to={'/login'} className="nav-link">
                 Login
               </Link>
             </li>
 
             <li className="nav-item">
-              <Link to={"/register"} className="nav-link">
+              <Link to={'/register'} className="nav-link">
                 Sign Up
               </Link>
             </li>
