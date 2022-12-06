@@ -1,17 +1,29 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import Drawer from '@mui/material/Drawer';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 import EventBus from '../common/EventBus';
-import SidebarView from '../components/SideBarView';
+import { Sidebar } from '../components/molecules/SideBar';
 import * as AuthService from '../services/auth.service';
-import AppBar from '../shared/molecules/AppBar';
 import IUser from '../types/user.type';
 
-const AdminLayout: React.FC = () => {
+const drawerWidth = 240;
+
+const AdminLayout = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState<boolean>(false);
   const [showAdminBoard, setShowAdminBoard] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<IUser | undefined>(undefined);
+
+  const logOut = () => {
+    AuthService.logout();
+    setShowModeratorBoard(false);
+    setShowAdminBoard(false);
+    setCurrentUser(undefined);
+  };
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
@@ -29,26 +41,30 @@ const AdminLayout: React.FC = () => {
     };
   }, []);
 
-  const logOut = () => {
-    AuthService.logout();
-    setShowModeratorBoard(false);
-    setShowAdminBoard(false);
-    setCurrentUser(undefined);
-  };
-
   return (
-    <div>
-      <>
-        <div className="row">
-          <div className="col-2">
-            <SidebarView></SidebarView>
-          </div>
-          <div className="col-10" style={{ backgroundColor: '#E3DAD8' }}>
-            <Outlet />
-          </div>
-        </div>
-      </>
-    </div>
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <Toolbar>
+          <Typography variant="h6" noWrap component="div">
+            Clipped drawer
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        variant="permanent"
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' }
+        }}>
+        <Sidebar />
+      </Drawer>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <Toolbar />
+        <Outlet />
+      </Box>
+    </Box>
   );
 };
 

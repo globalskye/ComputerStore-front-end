@@ -3,9 +3,8 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import EventBus from '../common/EventBus';
-import SidebarView from '../components/SideBarView';
+import AppBar from '../components/molecules/AppBar';
 import * as AuthService from '../services/auth.service';
-import AppBar from '../shared/molecules/AppBar';
 import IUser from '../types/user.type';
 
 const UserLayout: React.FC = () => {
