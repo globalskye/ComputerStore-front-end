@@ -1,19 +1,12 @@
 import React, { useState, useEffect, Fragment } from "react";
 import {
-  MDBRadio,
   MDBContainer,
   MDBRow,
   MDBCol,
   MDBCard,
   MDBCardBody,
   MDBCardImage,
-  MDBIcon,
   MDBRipple,
-  MDBBtn,
-  MDBBtnGroup,
-  MDBTypography,
-  MDBInput,
-  MDBCardText,
 } from "mdb-react-ui-kit";
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 
@@ -23,7 +16,6 @@ import {
   getAllProductItems,
   getAllProviders,
 } from "../services/store.service";
-import { unstable_createMuiStrictModeTheme } from "@material-ui/core";
 import { getCurrentUser } from "../services/auth.service";
 import { Button } from "react-bootstrap";
 type Item = {

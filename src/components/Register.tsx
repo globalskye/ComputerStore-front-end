@@ -4,7 +4,7 @@ import {
   Typography,
   TextField,
   Button,
-} from "@material-ui/core";
+} from "@mui/material";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -23,7 +23,7 @@ const schema = yup.object().shape({
   password: yup.string().required().min(8).max(120),
 });
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = () => makeStyles((theme: any) => ({
   heading: {
     textAlign: "center",
     margin: theme.spacing(1, 0, 4),
