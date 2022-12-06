@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import EventBus from '../../common/EventBus';
 import { Sidebar } from '../../components';
 import { AuthService } from '../../services';
-import IUser from '../../types/user';
+import UserProfile from '../../types/user-profile';
 import { menuItems } from './constants';
 
 const drawerWidth = 240;
@@ -17,7 +17,7 @@ const drawerWidth = 240;
 const AdminLayout = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState<boolean>(false);
   const [showAdminBoard, setShowAdminBoard] = useState<boolean>(false);
-  const [currentUser, setCurrentUser] = useState<IUser | undefined>(undefined);
+  const [currentUser, setCurrentUser] = useState<UserProfile | undefined>(undefined);
 
   const logOut = () => {
     AuthService.logout();

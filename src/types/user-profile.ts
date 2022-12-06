@@ -1,4 +1,4 @@
-export default interface IUser {
+export default interface UserProfile {
   id?: any | null;
   username: string;
   email: string;

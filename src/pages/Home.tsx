@@ -9,7 +9,7 @@ import {
 } from 'mdb-react-ui-kit';
 import React, { useState, useEffect, Fragment } from 'react';
 import { Button } from 'react-bootstrap';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getCurrentUser } from '../services/auth.service';
 import {
   addCardItem,
@@ -52,10 +52,7 @@ const Home: React.FC = () => {
           console.log(response.data);
         },
         (error) => {
-          const _content =
-            (error.response && error.response.data) || error.message || error.toString();
-
-          console.log(error);
+          console.log('err', error);
         }
       );
     } else {

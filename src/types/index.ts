@@ -1,2 +1,2 @@
 export * from './customTypes';
-export * from './user';
+export * from './user-profile';

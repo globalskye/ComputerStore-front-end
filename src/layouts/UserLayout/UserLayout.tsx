@@ -1,58 +1,31 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import EventBus from '../../common/EventBus';
-import AppBar from '../../components/organisms/AppBar/AppBar';
+import { userProfileAtom } from '../../atoms';
+import ResponsiveAppBar from '../../components/organisms/ResponsiveAppBar/ResponsiveAppBar';
 import { AuthService } from '../../services';
-import IUser from '../../types/user';
 
 const UserLayout = () => {
-  const [showModeratorBoard, setShowModeratorBoard] = useState<boolean>(false);
-  const [showAdminBoard, setShowAdminBoard] = useState<boolean>(false);
-  const [currentUser, setCurrentUser] = useState<IUser | undefined>(undefined);
+  const [userProfile, setUserProfile] = useRecoilState(userProfileAtom);
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
 
     if (user) {
-      setCurrentUser(user);
-      //setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));
-      //setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+      setUserProfile(user);
     }
-
-    EventBus.on('logout', logOut);
-
-    return () => {
-      EventBus.remove('logout', logOut);
-    };
   }, []);
 
-  const logOut = () => {
-    AuthService.logout();
-    setShowModeratorBoard(false);
-    setShowAdminBoard(false);
-    setCurrentUser(undefined);
-  };
-
   return (
-    <div>
-      <>
-        <div className="row">
-          <div className="col">
-            <AppBar
-              currentUser={currentUser}
-              logOut={logOut}
-              showModeratorBoard={showModeratorBoard}
-            />
-          </div>
+    <>
+      <ResponsiveAppBar />
+      <div className="row">
+        <div className="col-10" style={{ backgroundColor: '#E3DAD8' }}>
+          <Outlet />
         </div>
-        <div className="row">
-          <div className="col-10" style={{ backgroundColor: '#E3DAD8' }}>
-            <Outlet />
-          </div>
-        </div>
-      </>
-    </div>
+      </div>
+    </>
   );
 };
 

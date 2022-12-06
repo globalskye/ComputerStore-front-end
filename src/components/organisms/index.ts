@@ -1,2 +1,2 @@
-export * from './AppBar';
+export * from './ResponsiveAppBar';
 export * from './SideBar';

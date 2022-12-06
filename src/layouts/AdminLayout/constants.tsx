@@ -21,21 +21,21 @@ export const menuItems: MenuItem[] = [
         icon: <Inventory2Icon />,
         path: '/admin/products'
       },
-      {
-        name: 'Orders',
-        icon: <ShoppingCartIcon />,
-        path: '/admin/orders'
-      },
+      // {
+      //   name: 'Orders',
+      //   icon: <ShoppingCartIcon />,
+      //   path: '/admin/orders'
+      // },
       {
         name: 'Employee',
         icon: <BadgeIcon />,
         path: '/admin/employee'
       }
     ]
-  },
-  {
-    name: 'Settings',
-    icon: <SettingsIcon />,
-    path: '/admin/settings'
   }
+  // {
+  //   name: 'Settings',
+  //   icon: <SettingsIcon />,
+  //   path: '/admin/settings'
+  // }
 ];
