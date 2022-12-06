@@ -15,7 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import { isAuthenticatedAtom, userProfileAtom } from '../../../atoms';
+import { userProfileAtom } from '../../../atoms';
 import { AuthService } from '../../../services';
 
 export interface NavItem {

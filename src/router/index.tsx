@@ -19,16 +19,16 @@ const router = createBrowserRouter([
       { path: 'shop-cart', element: <ShopCart /> },
       { path: 'home', element: <Home /> }
     ]
+  },
+  {
+    path: '/admin',
+    element: <AdminLayout />,
+    children: [
+      { path: 'users', element: <AdminUsers /> },
+      { path: 'employee', element: <AdminEmployee /> },
+      { path: 'products', element: <AdminProducts /> }
+    ]
   }
-  // {
-  //   path: '/admin',
-  //   element: <AdminLayout />,
-  //   children: [
-  //     { path: 'users', element: <AdminUsers /> },
-  //     { path: 'employee', element: <AdminEmployee /> },
-  //     { path: 'products', element: <AdminProducts /> }
-  //   ]
-  // }
 ]);
 
 export default router;

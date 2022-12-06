@@ -1,30 +1,29 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { userProfileAtom } from '../../atoms';
 import ResponsiveAppBar from '../../components/organisms/ResponsiveAppBar/ResponsiveAppBar';
 import { AuthService } from '../../services';
 
 const UserLayout = () => {
+  const navigate = useNavigate();
   const [userProfile, setUserProfile] = useRecoilState(userProfileAtom);
+  const resetUserProfile = useResetRecoilState(userProfileAtom);
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
-
     if (user) {
       setUserProfile(user);
+    } else {
+      resetUserProfile();
+      navigate('/login');
     }
   }, []);
 
   return (
     <>
       <ResponsiveAppBar />
-      <div className="row">
-        <div className="col-10" style={{ backgroundColor: '#E3DAD8' }}>
-          <Outlet />
-        </div>
-      </div>
+      <Outlet />
     </>
   );
 };
