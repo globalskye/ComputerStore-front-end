@@ -4,9 +4,8 @@ import { Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-
 import * as AuthService from "./services/auth.service";
-import IUser from './types/user.type';
+import IUser from "./types/user.type";
 
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -16,13 +15,13 @@ import BoardUser from "./components/BoardUser";
 import BoardModerator from "./components/BoardModerator";
 import BoardAdmin from "./components/BoardAdmin";
 
-
-
 import EventBus from "./common/EventBus";
 import AdminUsers from "./components/AdminComponents/Users";
 import AdminEmployee from "./components/AdminComponents/Employee";
 import AdminProducts from "./components/AdminComponents/Products";
-
+import SidebarView from "./components/SideBarView";
+import { Container } from "react-bootstrap";
+import AdminOrders from "./components/AdminComponents/Orders";
 
 const App: React.FC = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState<boolean>(false);
@@ -53,14 +52,28 @@ const App: React.FC = () => {
   };
 
   return (
-    
     <div>
-      <Routes>
-          <Route path="/admin/users" element={<AdminUsers />} />
-          <Route path="/admin/employee" element={<AdminEmployee />} />
-          <Route path="/admin/product" element={<AdminProducts />} />
-      </Routes>
-      
+      <>
+        <div className="row">
+          <div className="col-auto">
+            <SidebarView></SidebarView>
+          </div>
+
+          <div
+            className="col"
+            style={{ margin: "1%", backgroundColor: "#E3DAD8" }}
+          >
+            <Container style={{ marginTop: "2%" }}>
+              <Routes>
+                <Route path="/admin/users" element={<AdminUsers />} />
+                <Route path="/admin/employee" element={<AdminEmployee />} />
+                <Route path="/admin/product" element={<AdminProducts />} />
+              </Routes>
+            </Container>
+          </div>
+        </div>
+      </>
+
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <Link to={"/"} className="navbar-brand">
           Course_Work
@@ -85,14 +98,6 @@ const App: React.FC = () => {
             </li>
           )}
 
-          {showAdminBoard && (
-            <li className="nav-item">
-              <Link to={"/admin"} className="nav-link">
-                Admin Board
-              </Link>
-            </li>
-          )}
-
           {currentUser && (
             <li className="nav-item">
               <Link to={"/user"} className="nav-link">
@@ -104,9 +109,7 @@ const App: React.FC = () => {
 
         {currentUser ? (
           <div className="navbar-nav ml-auto">
-            <li className="nav-item">
-              
-            </li>
+            <li className="nav-item"></li>
             <li className="nav-item">
               <a href="/login" className="nav-link" onClick={logOut}>
                 LogOut
@@ -129,17 +132,15 @@ const App: React.FC = () => {
           </div>
         )}
       </nav>
-          
+
       <div className="container mt-3">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          
           <Route path="/user" element={<BoardUser />} />
           <Route path="/mod" element={<BoardModerator />} />
-          
         </Routes>
       </div>
     </div>
