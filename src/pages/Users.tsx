@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { AiFillDelete } from 'react-icons/ai';
 import { FiEdit3 } from 'react-icons/fi';
-import EventBus from '../../common/EventBus';
-import { deleteUserById, getBoard } from '../../services/admin.service';
+import EventBus from '../common/EventBus';
+import { deleteUserById, getBoard } from '../services/admin.service';
 
 const AdminUsers: React.FC = () => {
   const [rows, setRows] = useState<any[]>([{ id: 1 }]);

@@ -1,14 +1,12 @@
 import { createBrowserRouter } from 'react-router-dom';
-import AdminEmployee from '../components/AdminComponents/Employee';
-import AdminProducts from '../components/AdminComponents/Products';
-import AdminUsers from '../components/AdminComponents/Users';
-import BoardModerator from '../components/BoardModerator';
-import BoardUser from '../components/BoardUser';
-import Home from '../components/Home';
-import Register from '../components/Register';
 import AdminLayout from '../layouts/AdminLayout';
 import UserLayout from '../layouts/UserLayout';
+import AdminEmployee from '../pages/Employee';
+import Home from '../pages/Home';
 import Login from '../pages/Login';
+import AdminProducts from '../pages/Products';
+import Register from '../pages/Register';
+import AdminUsers from '../pages/Users';
 
 const router = createBrowserRouter([
   {
@@ -17,8 +15,6 @@ const router = createBrowserRouter([
     children: [
       { path: 'login', element: <Login /> },
       { path: 'register', element: <Register /> },
-      { path: 'profile', element: <BoardUser /> },
-      { path: 'mod', element: <BoardModerator /> },
       { path: 'home', element: <Home /> }
     ]
   },
