@@ -28,7 +28,7 @@ const useStyles = () =>
     }
   }));
 
-const Register: React.FC = () => {
+const Login: React.FC = () => {
   const [message, setMessage] = useState<string>('');
   const navigate = useNavigate();
 
@@ -103,4 +103,4 @@ const Register: React.FC = () => {
   );
 };
 
-export default Register;
+export default Login;
