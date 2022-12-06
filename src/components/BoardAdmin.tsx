@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
-
+import { FiEdit3  } from "react-icons/fi";
+import { AiFillDelete  } from "react-icons/ai";
 import { getBoard } from "../services/admin.service";
 import EventBus from "../common/EventBus";
 import {
@@ -9,6 +10,7 @@ import {
   SubMenu,
   MenuItemStyles,
 } from "react-pro-sidebar";
+
 import styled from "styled-components";
 import DataTable from "react-data-table-component";
 
@@ -21,19 +23,10 @@ import {
 } from "@mui/x-data-grid";
 import { ICustomer } from "../types/customTypes";
 import { Autocomplete, Box, Button, Modal, Typography } from "@mui/material";
-import { Container } from "react-bootstrap";
+import {  Container } from "react-bootstrap";
+import SidebarView from "./SideBarView";
 
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+
 
 const BoardAdmin: React.FC = () => {
   const [ids, setIds] = useState<any[]>();
@@ -183,13 +176,16 @@ const BoardAdmin: React.FC = () => {
   //     </>
   //   );
   // }
-  const Menuitem = styled(MenuItem)`
-    :hover {
-      background-color: #ffdb58;
-      padding: 5px;
-      border-radius: 10px;
-    }
-  `;
+ 
+  
+  const but = () => {
+    return (
+      <>
+      <button style={{padding:"1px", borderRadius:"5px", margin:"4px"}}><FiEdit3/></button>
+      <button style={{padding:"1px", borderRadius:"5px",margin:"4px"}}><AiFillDelete/></button>
+      </>
+    )
+  }
   const columns = [
     {
       name: "Title",
@@ -201,19 +197,12 @@ const BoardAdmin: React.FC = () => {
       selector: (row: { year: any }) => row.year,
     },
     {
-      name: "ae",
+      name: "Actions",
       button: true,
       selector: (row: { id: any }) => row.id,
-      cell: (row: any) => (
-        <button
-          onClick={() => {
-            console.log(row.id);
-          }}
-        >
-          fdd
-        </button>
-      ),
+      cell: (row: any) => but()
     },
+  
   ];
 
   const data = [
@@ -230,26 +219,17 @@ const BoardAdmin: React.FC = () => {
   ];
   //https://react-data-table-component.netlify.app/?path=/docs/pagination-basic--basic
   return (
-    <div className="row">
-      <div className="col">
-        <div
-          style={{
-            display: "flex",
-            height: "100%",
-            backgroundColor: "#D8D8D8",
-          }}
-        >
-          <Sidebar style={{ height: "145vh" }} backgroundColor="grey">
-            <Menu>
-              <MenuItem style={{ color: "black" }}> Documentation</MenuItem>
-              <Menuitem> Calendar</Menuitem>
-
-              <SubMenu title="Components"></SubMenu>
-            </Menu>
-          </Sidebar>
-
-          <div className="col">
-            <Container>
+    <>
+    
+    
+    <div className="row" >
+    <SidebarView></SidebarView>
+      
+      
+          <div className="col"style={{margin:"2%", backgroundColor:"grey"}}>
+          
+          
+            <Container style={{marginTop:"2%"}}>
               <DataTable
                 columns={columns}
                 data={data}
@@ -258,10 +238,11 @@ const BoardAdmin: React.FC = () => {
                 onSelectedRowsChange={(itm) => console.log(itm)}
               />
             </Container>
-          </div>
+          
         </div>
       </div>
-    </div>
+      </>
+    
   );
 };
 

@@ -4,19 +4,24 @@ import { Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
+
 import * as AuthService from "./services/auth.service";
 import IUser from './types/user.type';
 
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from "./components/Home";
-import Profile from "./components/Profile";
+import Profile from "./components/SideBarView";
 import BoardUser from "./components/BoardUser";
 import BoardModerator from "./components/BoardModerator";
 import BoardAdmin from "./components/BoardAdmin";
 
 
+
 import EventBus from "./common/EventBus";
+import AdminUsers from "./components/AdminComponents/Users";
+import AdminEmployee from "./components/AdminComponents/Employee";
+import AdminProducts from "./components/AdminComponents/Products";
 
 
 const App: React.FC = () => {
@@ -48,7 +53,14 @@ const App: React.FC = () => {
   };
 
   return (
+    
     <div>
+      <Routes>
+          <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/admin/employee" element={<AdminEmployee />} />
+          <Route path="/admin/product" element={<AdminProducts />} />
+      </Routes>
+      
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <Link to={"/"} className="navbar-brand">
           Course_Work
@@ -93,9 +105,7 @@ const App: React.FC = () => {
         {currentUser ? (
           <div className="navbar-nav ml-auto">
             <li className="nav-item">
-              <Link to={"/profile"} className="nav-link">
-                {currentUser.username}
-              </Link>
+              
             </li>
             <li className="nav-item">
               <a href="/login" className="nav-link" onClick={logOut}>
@@ -119,17 +129,14 @@ const App: React.FC = () => {
           </div>
         )}
       </nav>
-          <Routes>
-          <Route path="/admin" element={<BoardAdmin />} />
           
-          </Routes>
       <div className="container mt-3">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<Profile />} />
+          
           <Route path="/user" element={<BoardUser />} />
           <Route path="/mod" element={<BoardModerator />} />
           
