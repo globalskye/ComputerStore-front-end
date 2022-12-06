@@ -41,6 +41,12 @@ const AdminUsers: React.FC = () => {
   }
   const columns = [
     {
+      name: "Actions",
+      button: true,
+      selector: (row: { id: any }) => row.id,
+      cell: (row: any) => but()
+    },
+    {
       name: "Username",
       selector: (row: { username: any }) => row.username,
       sortable: true,
@@ -57,38 +63,25 @@ const AdminUsers: React.FC = () => {
         name: "Role",
         selector: (row: { role: any }) => row.role,
     },  
-    {
-      name: "Actions",
-      button: true,
-      selector: (row: { id: any }) => row.id,
-      cell: (row: any) => but()
-    },
+  
   ];
 
 
     return (
         
-            <>
-            <div className="row" >
-            <SidebarView></SidebarView>
+           
               
               
-                  <div className="col"style={{margin:"2%", backgroundColor:"grey"}}>
-                  
-                  
-                    <Container style={{marginTop:"2%"}}>
+                 
                       <DataTable
+                      pagination
                         columns={columns}
                         data={rows}
-                        selectableRows
-                        pagination
+                       
+                        
                         onSelectedRowsChange={(itm) => console.log(itm)}
                       />
-                    </Container>
-                  
-                </div>
-              </div>
-              </>
+                 
     )
 }
 export default AdminUsers

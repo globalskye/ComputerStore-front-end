@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Container } from "react-bootstrap";
-import DataTable from "react-data-table-component";
+import DataTable , { ExpanderComponentProps } from "react-data-table-component";
 import { AiFillDelete } from "react-icons/ai";
 import { FiEdit3 } from "react-icons/fi";
 import EventBus from "../../common/EventBus";
@@ -41,6 +41,12 @@ const AdminEmployee: React.FC = () => {
   }
   const columns = [
     {
+      name: "Actions",
+      button: true,
+      selector: (row: { id: any }) => row.id,
+      cell: (row: any) => but()
+    },
+    {
       name: "FirstName",
       selector: (row: { firstname: any }) => row.firstname,
       sortable: true,
@@ -61,38 +67,26 @@ const AdminEmployee: React.FC = () => {
         name: "Salary $",
         selector: (row: { salary: any }) => row.salary,
     },  
-    {
-      name: "Actions",
-      button: true,
-      selector: (row: { id: any }) => row.id,
-      cell: (row: any) => but()
-    },
+   
   ];
-
+ 
 
     return (
         
-            <>
-            <div className="row" >
-            <SidebarView></SidebarView>
-              
-              
-                  <div className="col"style={{margin:"2%", backgroundColor:"grey"}}>
+       
                   
-                  
-                    <Container style={{marginTop:"2%"}}>
                       <DataTable
+                      pagination
                         columns={columns}
                         data={rows}
-                        selectableRows
-                        pagination
-                        onSelectedRowsChange={(itm) => console.log(itm)}
+                        
+                        
+                        
+                        
                       />
-                    </Container>
-                  
-                </div>
-              </div>
-              </>
+                   
+                
+            
     )
 }
 export default AdminEmployee

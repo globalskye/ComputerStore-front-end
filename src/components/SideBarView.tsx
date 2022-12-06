@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { FaCog, FaUserTie, FaColumns, FaThList, FaTable,FaShoppingCart,  } from "react-icons/fa";
-import { GrTransaction  } from "react-icons/gr";
+import { GrTransaction,GrUserWorker  } from "react-icons/gr";
+import { SiWheniwork  } from "react-icons/si";
 import {
   Menu,
   MenuItem,
@@ -10,19 +11,20 @@ import {
  
   SubMenu
 } from "react-pro-sidebar";
-
+import {useNavigate} from 'react-router-dom';
 
 const SidebarView: React.FC = () => {
   
 
-
+  const navigate = useNavigate();
 
   const [collapsed, setCollapsed] = useState(false);
  
   
   return (
+   
     
-    <Sidebar style={{backgroundColor:"#000000", height:"145vh"} } defaultCollapsed={collapsed} >
+    <Sidebar style={{ height:"145vh" }} defaultCollapsed={collapsed} backgroundColor={"grey"}>
       <Menu>
       <MenuItem icon={<FaThList />} onClick={() => setCollapsed(!collapsed)}/>
         
@@ -34,20 +36,15 @@ const SidebarView: React.FC = () => {
         <MenuItem icon={<FaColumns />} > Dashboard</MenuItem>
         
         <SubMenu label="Tables" icon={<FaTable />}>
-        <MenuItem icon={<FaUserTie />} >Users</MenuItem>
-        <MenuItem icon={<FaShoppingCart  />} >User Cart</MenuItem>
-        <MenuItem icon={<GrTransaction  />} >Orders</MenuItem>
-        
-        
-          <MenuItem >Skill Matrix</MenuItem>
-          <MenuItem>Know Your Company</MenuItem>
-          <MenuItem>Joining Day Information</MenuItem>
-          <MenuItem>Feedback</MenuItem>
-          <MenuItem>Background Check</MenuItem>
+        <MenuItem icon={<FaUserTie />} onClick={()=>navigate("/admin/users")}>Users</MenuItem>
+        <MenuItem icon={<SiWheniwork  /> } onClick={()=>navigate("/admin/product")}>Products</MenuItem>
+        <MenuItem icon={<GrTransaction  />} onClick={()=>navigate("/admin/orders")}>Orders</MenuItem>
+        <MenuItem icon={<GrUserWorker  />} onClick={()=>navigate("/admin/employee")}>Employee</MenuItem>
         </SubMenu>
         <MenuItem icon={<FaCog />}>Settings</MenuItem>
       </Menu>
     </Sidebar>
+    
    
   );
 };

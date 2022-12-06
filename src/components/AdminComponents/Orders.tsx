@@ -8,10 +8,10 @@ import { getBoard } from "../../services/admin.service";
 import SidebarView from "../SideBarView";
 
 
-const AdminProducts: React.FC = () => {
+const AdminOrders: React.FC = () => {
     const [rows, setRows] = useState<any[]>([{ id: 1 }]);
   useEffect(() => {
-    getBoard("product").then(
+    getBoard("orders").then(
       (response) => {
         setRows(response.data);
       },
@@ -59,53 +59,46 @@ const AdminProducts: React.FC = () => {
         cell: (row: any) => but()
       },
     {
-      name: "Name",
-      selector: (row: { name: any }) => row.name,
+      name: "Date",
+      selector: (row: { date: any }) => row.date,
       sortable: true,
     },
     {
-      name: "Image",
+      name: "Price $",
       
-      selector: (row: { image: any }) => row.image,
-      cell: (row: any) => image(row)
+      selector: (row: { price: any }) => row.price,
       
     },
-    {   
-        name: "Description",
-        selector: (row: { description: any }) => row.description,
+   
+    {
+        name: "ProductName",
+        selector: (row: { productName: any }) => row.productName,
     },
     {
-        name: "Price $",
-        selector: (row: { price: any }) => row.price,
-        sortable:true,
-    },  
+        name: "CustomerName",
+        selector: (row: { customerName: any }) => row.customerName,
+    },   
     {
-        name: "Garantia(mounth)",
-        selector: (row: { garantia: any }) => row.garantia,
-    },
-    {
-        name: "Category",
-        selector: (row: { category: any }) => row.category,
+      name: "EmployeeName",
+      selector: (row: { employeeName: any }) => row.employeeName,
     },    
     
   ];
+  
 
 
     return (
         
-          
-              
+      
               
                  
                       <DataTable
-                      pagination
+                        pagination
                         columns={columns}
                         data={rows}
-                        
-                        
                       />
                    
              
     )
 }
-export default AdminProducts
+export default AdminOrders

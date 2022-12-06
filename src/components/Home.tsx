@@ -51,20 +51,16 @@ const Home: React.FC = () => {
   const [choseCategory, setChoseCategory] = useState<string>("All");
   const [cardItem, setCardItem] = useState<Item>();
   
-  const addToItemCartHandler = () => {
+  const addToItemCartHandler = (id: any) => {
     if (getCurrentUser()) {
-      
-      console.log(cardItem)
-      return (event: React.MouseEvent) => {
-    
-      }
+        addCardItem(id)
+        
+    }else{
+      navigate("/login")
     }
-    
-    
-   
-    
 
   };
+  
 
   const radioProviderHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChoseProvider(event.target.value);
@@ -257,7 +253,7 @@ const Home: React.FC = () => {
                     </h6>
                     <div className="d-flex flex-column mt-4">
                       
-                      <Button variant="outline-primary" value={item.id} onClick={()=>{if (getCurrentUser!==null){addCardItem(item.id)}else{navigate("/login");window.location.reload() }}}>Add to card</Button>
+                      <Button variant="outline-primary" value={item.id} onClick={(value)=>{addToItemCartHandler(value)}}>Add to card</Button>
                     </div>
                   </MDBCol>
                 </MDBRow>
