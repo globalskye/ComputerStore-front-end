@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import IUser from '../../types/user.type';
+import IUser from '../../../types/user';
 
 const AppBar = ({
   showModeratorBoard,

@@ -6,10 +6,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import EventBus from '../common/EventBus';
-import { Sidebar } from '../components/molecules/SideBar';
-import * as AuthService from '../services/auth.service';
-import IUser from '../types/user.type';
+import EventBus from '../../common/EventBus';
+import { Sidebar } from '../../components';
+import { AuthService } from '../../services';
+import IUser from '../../types/user';
+import { menuItems } from './constants';
 
 const drawerWidth = 240;
 
@@ -58,7 +59,7 @@ const AdminLayout = () => {
           flexShrink: 0,
           [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' }
         }}>
-        <Sidebar />
+        <Sidebar menuItems={menuItems} />
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />

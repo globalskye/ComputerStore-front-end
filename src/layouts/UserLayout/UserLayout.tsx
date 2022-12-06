@@ -1,13 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React from 'react';
 import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import EventBus from '../common/EventBus';
-import AppBar from '../components/molecules/AppBar';
-import * as AuthService from '../services/auth.service';
-import IUser from '../types/user.type';
+import EventBus from '../../common/EventBus';
+import AppBar from '../../components/organisms/AppBar/AppBar';
+import { AuthService } from '../../services';
+import IUser from '../../types/user';
 
-const UserLayout: React.FC = () => {
+const UserLayout = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState<boolean>(false);
   const [showAdminBoard, setShowAdminBoard] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<IUser | undefined>(undefined);
