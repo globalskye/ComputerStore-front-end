@@ -49,11 +49,25 @@ const Home: React.FC = () => {
   const [providers, setProvider] = useState<Provider[]>();
   const [choseProvider, setChoseProvider] = useState<string>("All");
   const [choseCategory, setChoseCategory] = useState<string>("All");
-  const [cardItem, setCardItem] = useState<Item>();
+  const [addToCard, setAddTocard] = useState<string>("Add To Card");
+  const [response, setResponse] = useState<any>();
   
-  const addToItemCartHandler = (id: any) => {
+  const addToItemCartHandler = (id: number) => {
     if (getCurrentUser()) {
-        addCardItem(id)
+      console.log("response.data");
+        addCardItem(id).then(
+          (response) => {
+            console.log(response.data);
+          },
+          (error) => {
+            const _content =
+              (error.response && error.response.data) ||
+              error.message ||
+              error.toString();
+    
+            console.log(error);
+          }
+        );
         
     }else{
       navigate("/login")
@@ -253,7 +267,7 @@ const Home: React.FC = () => {
                     </h6>
                     <div className="d-flex flex-column mt-4">
                       
-                      <Button variant="outline-primary" value={item.id} onClick={(value)=>{addToItemCartHandler(value)}}>Add to card</Button>
+                      <Button variant="outline-primary"  onClick={()=>{addToItemCartHandler(item.id)}}>add to card</Button>
                     </div>
                   </MDBCol>
                 </MDBRow>
