@@ -7,7 +7,7 @@ const eventBus = {
   },
   remove(event: string, callback: EventListener) {
     document.removeEventListener(event, callback);
-  },
+  }
 };
 
 export default eventBus;
