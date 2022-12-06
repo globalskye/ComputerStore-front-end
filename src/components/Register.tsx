@@ -2,7 +2,7 @@ import * as yup from 'yup';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { makeStyles, Container, Typography, TextField, Button } from '@mui/material';
+import { Container, Typography, TextField, Button } from '@mui/material';
 import { userRegister } from '../services/auth.service';
 
 interface IFormInput {
@@ -17,17 +17,6 @@ const schema = yup.object().shape({
   password: yup.string().required().min(8).max(120)
 });
 
-const useStyles = () =>
-  makeStyles((theme: any) => ({
-    heading: {
-      textAlign: 'center',
-      margin: theme.spacing(1, 0, 4)
-    },
-    submitButton: {
-      marginTop: theme.spacing(4)
-    }
-  }));
-
 const Register: React.FC = () => {
   const [message, setMessage] = useState<string>('');
 
@@ -39,7 +28,6 @@ const Register: React.FC = () => {
     resolver: yupResolver(schema)
   });
 
-  const { heading, submitButton } = useStyles();
   const onSubmit = (data: IFormInput) => {
     userRegister(data.username, data.email, data.password).then(
       (response) => {
@@ -58,9 +46,7 @@ const Register: React.FC = () => {
 
   return (
     <Container maxWidth="xs">
-      <Typography className={heading} variant="h3">
-        Sign In
-      </Typography>
+      <Typography variant="h3">Sign In</Typography>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <TextField
           {...register('email')}
@@ -91,12 +77,7 @@ const Register: React.FC = () => {
           type="password"
           fullWidth
         />
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          className={submitButton}>
+        <Button type="submit" fullWidth variant="contained" color="primary">
           Sign Up
         </Button>
         {message && (

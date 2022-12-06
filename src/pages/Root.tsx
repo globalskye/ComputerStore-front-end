@@ -41,19 +41,20 @@ const Rout: React.FC = () => {
     <div>
       <>
         <div className="row">
-          <div className="col-auto">
+          <div className="col">
+            <AppBar
+              currentUser={currentUser}
+              logOut={logOut}
+              showModeratorBoard={showModeratorBoard}
+            />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-2">
             <SidebarView></SidebarView>
           </div>
-
-          <div className="col" style={{ margin: '1%', backgroundColor: '#E3DAD8' }}>
-            <Container style={{ marginTop: '2%' }}>
-              <AppBar
-                currentUser={currentUser}
-                logOut={logOut}
-                showModeratorBoard={showModeratorBoard}
-              />
-              <Outlet />
-            </Container>
+          <div className="col-10" style={{ backgroundColor: '#E3DAD8' }}>
+            <Outlet />
           </div>
         </div>
       </>

@@ -6,6 +6,7 @@ import BoardModerator from '../components/BoardModerator';
 import BoardUser from '../components/BoardUser';
 import Home from '../components/Home';
 import Register from '../components/Register';
+import Login from '../pages/Login';
 import Root from '../pages/Root';
 
 const router = createBrowserRouter([
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
         ]
       },
       { path: 'home', element: <Home /> },
+      { path: 'login', element: <Login /> },
       { path: 'register', element: <Register /> },
       { path: 'profile', element: <BoardUser /> },
       { path: 'mod', element: <BoardModerator /> }
