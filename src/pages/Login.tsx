@@ -1,9 +1,11 @@
 import * as yup from 'yup';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { makeStyles, Container, Typography, TextField, Button } from '@mui/material';
-import { userRegister } from '../services/auth.service';
+import { Container, Typography, TextField, Button } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { login } from '../services/auth.service';
 
 interface IFormInput {
   email: string;
@@ -12,24 +14,24 @@ interface IFormInput {
 }
 
 const schema = yup.object().shape({
-  email: yup.string().required().email(),
   username: yup.string().required().min(2).max(25),
-  password: yup.string().required().min(8).max(120)
+  password: yup.string().required()
 });
 
-const useStyles = () =>
-  makeStyles((theme: any) => ({
-    heading: {
-      textAlign: 'center',
-      margin: theme.spacing(1, 0, 4)
-    },
-    submitButton: {
-      marginTop: theme.spacing(4)
-    }
-  }));
+// const useStyles = () =>
+//   makeStyles((theme: any) => ({
+//     heading: {
+//       textAlign: 'center',
+//       margin: theme.spacing(1, 0, 4)
+//     },
+//     submitButton: {
+//       marginTop: theme.spacing(4)
+//     }
+//   }));
 
-const Register: React.FC = () => {
+const Login: React.FC = () => {
   const [message, setMessage] = useState<string>('');
+  const navigate = useNavigate();
 
   const {
     register,
@@ -39,11 +41,13 @@ const Register: React.FC = () => {
     resolver: yupResolver(schema)
   });
 
-  const { heading, submitButton } = useStyles();
+  // const { heading, submitButton } = useStyles();
   const onSubmit = (data: IFormInput) => {
-    userRegister(data.username, data.email, data.password).then(
+    login(data.username, data.password).then(
       (response) => {
-        setMessage('user succfully registred');
+        navigate('/home');
+        window.location.reload();
+        setMessage('login success');
       },
       (error) => {
         const resMessage =
@@ -58,20 +62,12 @@ const Register: React.FC = () => {
 
   return (
     <Container maxWidth="xs">
-      <Typography className={heading} variant="h3">
-        Sign In
+      <Typography
+        // className={heading}
+        variant="h3">
+        Sign Up
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <TextField
-          {...register('email')}
-          variant="outlined"
-          margin="normal"
-          label="Email"
-          helperText={errors.email?.message}
-          error={!!errors.email?.message}
-          fullWidth
-          required
-        />
         <TextField
           {...register('username')}
           variant="outlined"
@@ -96,8 +92,9 @@ const Register: React.FC = () => {
           fullWidth
           variant="contained"
           color="primary"
-          className={submitButton}>
-          Sign Up
+          // className={submitButton}
+        >
+          Sign In
         </Button>
         {message && (
           <>
@@ -110,4 +107,4 @@ const Register: React.FC = () => {
   );
 };
 
-export default Register;
+export default Login;

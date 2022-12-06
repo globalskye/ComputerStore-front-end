@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { AiFillDelete } from 'react-icons/ai';
 import { FiEdit3 } from 'react-icons/fi';
-import EventBus from '../../common/EventBus';
-import { getBoard } from '../../services/admin.service';
+import EventBus from '../common/EventBus';
+import { getBoard } from '../services/admin.service';
 
-const AdminEmployee: React.FC = () => {
+const AdminProducts: React.FC = () => {
   const [rows, setRows] = useState<any[]>([{ id: 1 }]);
   useEffect(() => {
-    getBoard('employee').then(
+    getBoard('product').then(
       (response) => {
         console.log(response.data);
         setRows(response.data);
@@ -18,7 +18,6 @@ const AdminEmployee: React.FC = () => {
           (error.response && error.response.data && error.response.data.message) ||
           error.message ||
           error.toString();
-
         console.log(error);
 
         if (error.response && error.response.status === 401) {
@@ -39,6 +38,13 @@ const AdminEmployee: React.FC = () => {
       </>
     );
   };
+  const image = (imag: any) => {
+    return (
+      <>
+        <img src={imag.image} width={50} height={50} alt="Player" />
+      </>
+    );
+  };
   const columns = [
     {
       name: 'Actions',
@@ -47,28 +53,35 @@ const AdminEmployee: React.FC = () => {
       cell: (row: any) => but()
     },
     {
-      name: 'FirstName',
-      selector: (row: { firstname: any }) => row.firstname,
+      name: 'Name',
+      selector: (row: { name: any }) => row.name,
       sortable: true
     },
     {
-      name: 'Lastname',
-      selector: (row: { lastname: any }) => row.lastname
+      name: 'Image',
+
+      selector: (row: { image: any }) => row.image,
+      cell: (row: any) => image(row)
     },
     {
-      name: 'Phone',
-      selector: (row: { phone: any }) => row.phone
+      name: 'Description',
+      selector: (row: { description: any }) => row.description
     },
     {
-      name: 'WorkTime',
-      selector: (row: { worktime: any }) => row.worktime
+      name: 'Price $',
+      selector: (row: { price: any }) => row.price,
+      sortable: true
     },
     {
-      name: 'Salary $',
-      selector: (row: { salary: any }) => row.salary
+      name: 'Garantia(mounth)',
+      selector: (row: { garantia: any }) => row.garantia
+    },
+    {
+      name: 'Category',
+      selector: (row: { category: any }) => row.category
     }
   ];
 
   return <DataTable pagination columns={columns} data={rows} />;
 };
-export default AdminEmployee;
+export default AdminProducts;

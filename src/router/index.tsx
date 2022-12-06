@@ -1,85 +1,32 @@
 import { createBrowserRouter } from 'react-router-dom';
+import AdminLayout from '../layouts/AdminLayout';
+import UserLayout from '../layouts/UserLayout';
+import AdminEmployee from '../pages/Employee';
+import Home from '../pages/Home';
+import Login from '../pages/Login';
+import AdminProducts from '../pages/Products';
+import Register from '../pages/Register';
+import AdminUsers from '../pages/Users';
 
 const router = createBrowserRouter([
-  // AUTH
-  // {
-  //   path: '/',
-  //   element: <Root />,
-  //   children: [
-  //     { index: true, element: <ClientSelector /> },
-  //     {
-  //       path: '/client',
-  //       children: [
-  //         { index: true, element: <ClientSelector /> },
-  //         {
-  //           path: ':workspaceId',
-  //           element: <Client />,
-  //           errorElement: <Error />,
-  //           children: [
-  //             {
-  //               path: ':projectId',
-  //               children: [
-  //                 { index: true, element: <Tasks /> },
-  //                 {
-  //                   path: 'task',
-  //                   element: <Tasks />
-  //                 },
-  //                 {
-  //                   path: 'task/editor',
-  //                   element: <TaskEditor />
-  //                 },
-  //                 {
-  //                   path: 'task/editor/:taskId',
-  //                   element: <TaskEditor />
-  //                 }
-  //               ]
-  //             },
-  //             // SETTINGS
-  //             {
-  //               path: 'app-settings',
-  //               element: <Settings />
-  //             },
-  //             {
-  //               path: 'personal-settings',
-  //               element: <PersonalSettings />
-  //             },
-  //             {
-  //               path: 'workspace-settings',
-  //               element: <WorkspaceSettings />
-  //             },
-  //             // Participants
-  //             {
-  //               path: 'participants',
-  //               element: <Participants />
-  //             },
-  //             // SHOP
-  //             {
-  //               path: 'shop',
-  //               element: <Shop />
-  //             },
-  //             {
-  //               path: 'shop/editor',
-  //               element: <ShopItemEditor />
-  //             },
-  //             {
-  //               path: 'shop/editor/:shopItemId',
-  //               element: <ShopItemEditor />
-  //             },
-  //             {
-  //               path: 'purchase-history',
-  //               element: <PurchaseHistory />
-  //             },
-  //             // PROFILE
-  //             {
-  //               path: 'profile',
-  //               element: <Profile />
-  //             }
-  //           ]
-  //         }
-  //       ]
-  //     }
-  //   ]
-  // }
+  {
+    path: '/',
+    element: <UserLayout />,
+    children: [
+      { path: 'login', element: <Login /> },
+      { path: 'register', element: <Register /> },
+      { path: 'home', element: <Home /> }
+    ]
+  },
+  {
+    path: '/admin',
+    element: <AdminLayout />,
+    children: [
+      { path: 'users', element: <AdminUsers /> },
+      { path: 'employee', element: <AdminEmployee /> },
+      { path: 'product', element: <AdminProducts /> }
+    ]
+  }
 ]);
 
 export default router;

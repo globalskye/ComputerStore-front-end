@@ -2,15 +2,14 @@ import { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { AiFillDelete } from 'react-icons/ai';
 import { FiEdit3 } from 'react-icons/fi';
-import EventBus from '../../common/EventBus';
-import { getBoard } from '../../services/admin.service';
+import EventBus from '../common/EventBus';
+import { getBoard } from '../services/admin.service';
 
-const AdminProducts: React.FC = () => {
+const AdminOrders: React.FC = () => {
   const [rows, setRows] = useState<any[]>([{ id: 1 }]);
   useEffect(() => {
-    getBoard('product').then(
+    getBoard('orders').then(
       (response) => {
-        console.log(response.data);
         setRows(response.data);
       },
       (error) => {
@@ -18,7 +17,8 @@ const AdminProducts: React.FC = () => {
           (error.response && error.response.data && error.response.data.message) ||
           error.message ||
           error.toString();
-        console.log(error);
+
+        setRows(_content);
 
         if (error.response && error.response.status === 401) {
           EventBus.dispatch('logout');
@@ -26,7 +26,7 @@ const AdminProducts: React.FC = () => {
       }
     );
   }, []);
-  const but = () => {
+  const but = (data: any) => {
     return (
       <>
         <button style={{ padding: '1px', borderRadius: '5px', margin: '4px' }}>
@@ -38,50 +38,39 @@ const AdminProducts: React.FC = () => {
       </>
     );
   };
-  const image = (imag: any) => {
-    return (
-      <>
-        <img src={imag.image} width={50} height={50} alt="Player" />
-      </>
-    );
-  };
+
   const columns = [
     {
       name: 'Actions',
       button: true,
       selector: (row: { id: any }) => row.id,
-      cell: (row: any) => but()
+      cell: (row: any) => but(row)
     },
     {
-      name: 'Name',
-      selector: (row: { name: any }) => row.name,
+      name: 'Date',
+      selector: (row: { date: any }) => row.date,
       sortable: true
-    },
-    {
-      name: 'Image',
-
-      selector: (row: { image: any }) => row.image,
-      cell: (row: any) => image(row)
-    },
-    {
-      name: 'Description',
-      selector: (row: { description: any }) => row.description
     },
     {
       name: 'Price $',
-      selector: (row: { price: any }) => row.price,
-      sortable: true
+
+      selector: (row: { price: any }) => row.price
+    },
+
+    {
+      name: 'ProductName',
+      selector: (row: { productName: any }) => row.productName
     },
     {
-      name: 'Garantia(mounth)',
-      selector: (row: { garantia: any }) => row.garantia
+      name: 'CustomerName',
+      selector: (row: { customerName: any }) => row.customerName
     },
     {
-      name: 'Category',
-      selector: (row: { category: any }) => row.category
+      name: 'EmployeeName',
+      selector: (row: { employeeName: any }) => row.employeeName
     }
   ];
 
   return <DataTable pagination columns={columns} data={rows} />;
 };
-export default AdminProducts;
+export default AdminOrders;
