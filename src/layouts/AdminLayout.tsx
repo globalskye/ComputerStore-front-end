@@ -1,7 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Container } from 'react-bootstrap';
 import { Outlet } from 'react-router-dom';
 import EventBus from '../common/EventBus';
 import SidebarView from '../components/SideBarView';
@@ -9,7 +8,7 @@ import * as AuthService from '../services/auth.service';
 import AppBar from '../shared/molecules/AppBar';
 import IUser from '../types/user.type';
 
-const Rout: React.FC = () => {
+const AdminLayout: React.FC = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState<boolean>(false);
   const [showAdminBoard, setShowAdminBoard] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<IUser | undefined>(undefined);
@@ -41,15 +40,6 @@ const Rout: React.FC = () => {
     <div>
       <>
         <div className="row">
-          <div className="col">
-            <AppBar
-              currentUser={currentUser}
-              logOut={logOut}
-              showModeratorBoard={showModeratorBoard}
-            />
-          </div>
-        </div>
-        <div className="row">
           <div className="col-2">
             <SidebarView></SidebarView>
           </div>
@@ -62,4 +52,4 @@ const Rout: React.FC = () => {
   );
 };
 
-export default Rout;
+export default AdminLayout;

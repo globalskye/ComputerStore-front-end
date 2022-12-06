@@ -6,27 +6,29 @@ import BoardModerator from '../components/BoardModerator';
 import BoardUser from '../components/BoardUser';
 import Home from '../components/Home';
 import Register from '../components/Register';
+import AdminLayout from '../layouts/AdminLayout';
+import UserLayout from '../layouts/UserLayout';
 import Login from '../pages/Login';
-import Root from '../pages/Root';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Root />,
+    element: <UserLayout />,
     children: [
-      {
-        path: 'admin',
-        children: [
-          { path: 'users', element: <AdminUsers /> },
-          { path: 'employee', element: <AdminEmployee /> },
-          { path: 'product', element: <AdminProducts /> }
-        ]
-      },
-      { path: 'home', element: <Home /> },
       { path: 'login', element: <Login /> },
       { path: 'register', element: <Register /> },
       { path: 'profile', element: <BoardUser /> },
-      { path: 'mod', element: <BoardModerator /> }
+      { path: 'mod', element: <BoardModerator /> },
+      { path: 'home', element: <Home /> }
+    ]
+  },
+  {
+    path: '/admin',
+    element: <AdminLayout />,
+    children: [
+      { path: 'users', element: <AdminUsers /> },
+      { path: 'employee', element: <AdminEmployee /> },
+      { path: 'product', element: <AdminProducts /> }
     ]
   }
 ]);
