@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
-
-import { getUserBoard } from "../services/user.service";
-import EventBus from "../common/EventBus";
+import React, { useState, useEffect } from 'react';
+import EventBus from '../common/EventBus';
+import { getUserBoard } from '../services/user.service';
 
 const UserCard: React.FC = () => {
-  const [content, setContent] = useState<string>("");
-  
+  const [content, setContent] = useState<string>('');
 
   useEffect(() => {
     getUserBoard().then(
@@ -14,16 +12,14 @@ const UserCard: React.FC = () => {
       },
       (error) => {
         const _content =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
+          (error.response && error.response.data && error.response.data.message) ||
           error.message ||
           error.toString();
 
         setContent(_content);
 
         if (error.response && error.response.status === 401) {
-          EventBus.dispatch("logout");
+          EventBus.dispatch('logout');
         }
       }
     );
@@ -38,4 +34,4 @@ const UserCard: React.FC = () => {
   );
 };
 
-export {}
+export {};

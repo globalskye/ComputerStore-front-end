@@ -1,24 +1,24 @@
-import axios from "axios";
+import axios from 'axios';
 
-const API_URL = "http://localhost:8080/auth/";
+const API_URL = 'http://localhost:8080/auth/';
 
 export const userRegister = (username: string, email: string, password: string) => {
-  return axios.post(API_URL + "sign-up", {
+  return axios.post(API_URL + 'sign-up', {
     username,
     email,
-    password,
+    password
   });
 };
 
 export const login = (username: string, password: string) => {
   return axios
-    .post(API_URL + "sign-in", {
+    .post(API_URL + 'sign-in', {
       username,
-      password,
+      password
     })
     .then((response) => {
       if (response.data.accessToken) {
-        localStorage.setItem("user", JSON.stringify(response.data));
+        localStorage.setItem('user', JSON.stringify(response.data));
       }
 
       return response.data;
@@ -26,15 +26,13 @@ export const login = (username: string, password: string) => {
 };
 
 export const logout = () => {
-  localStorage.removeItem("user");
+  localStorage.removeItem('user');
 };
 
 export const getCurrentUser = () => {
-  const userStr = localStorage.getItem("user");
+  const userStr = localStorage.getItem('user');
   if (userStr) return JSON.parse(userStr);
 
   return null;
 };
-export const getCurrentUserRole = () => {
-  
-}
+// export const getCurrentUserRole = () => {};
