@@ -1,6 +1,9 @@
 import { RecoilRoot } from 'recoil';
 import ReactDOM from 'react-dom/client';
-import { ProSidebarProvider } from 'react-pro-sidebar';
+import '@fontsource/lato/300.css';
+import '@fontsource/lato/400.css';
+import '@fontsource/lato/700.css';
+import { CssBaseline } from '@mui/material';
 import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
@@ -8,11 +11,10 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
-  <ProSidebarProvider>
-    <RecoilRoot>
-      <App />
-    </RecoilRoot>
-  </ProSidebarProvider>
+  <RecoilRoot>
+    <CssBaseline />
+    <App />
+  </RecoilRoot>
 );
 
 // If you want to start measuring performance in your app, pass a function
