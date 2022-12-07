@@ -1,29 +1,25 @@
+import { useRecoilState } from 'recoil';
 import { useEffect, useState } from 'react';
+import {
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  FormHelperText,
+  FormLabel
+} from '@mui/material';
+import { selectedCategoriesState } from '../../../atoms';
 import { getAllCategories } from '../../../services';
-import RadioButtonsGroup from '../../molecules/RadioButtonsGroup';
-
-type Category = {
-  id: number;
-  category: string;
-};
+import { Category } from '../../../types/category';
 
 function CategoriesList() {
-  const [categories, setCategory] = useState<{ value: string; label: string }[]>();
-  const [choseCategory, setChoseCategory] = useState<string>('All');
-
-  const radioCategoryHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChoseCategory(event.target.value);
-  };
+  const [categories, setCategory] = useState<Category[]>();
+  const [selectedCategories, setSelectedCategories] = useRecoilState(selectedCategoriesState);
 
   useEffect(() => {
     getAllCategories().then(
       (response) => {
-        setCategory(
-          response.data.map((item: Category) => ({
-            value: item.id,
-            label: item.category
-          }))
-        );
+        setCategory(response.data);
       },
       (error) => {
         console.log(error);
@@ -33,11 +29,38 @@ function CategoriesList() {
     );
   }, []);
 
+  const handleChange = (category: Category) => {
+    if (selectedCategories.find((i) => i.id === category.id)) {
+      setSelectedCategories((prev) => prev.filter((i) => i.id !== category.id));
+    } else {
+      setSelectedCategories((prev) => [...prev, category]);
+    }
+  };
+
   if (!categories) {
     return null;
-  } else {
-    return <RadioButtonsGroup name="Categories" options={categories} />;
   }
+
+  return (
+    <FormControl>
+      <FormLabel component="legend">Assign responsibility</FormLabel>
+      <FormGroup>
+        {categories.map((category) => (
+          <FormControlLabel
+            key={category.id}
+            control={
+              <Checkbox
+                checked={!!selectedCategories.find((i) => i.id === category.id)}
+                onChange={() => handleChange(category)}
+                name={category.category}
+              />
+            }
+            label={category.category}
+          />
+        ))}
+      </FormGroup>
+    </FormControl>
+  );
 }
 
 export default CategoriesList;

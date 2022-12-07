@@ -27,6 +27,7 @@ const AdminEmployee: React.FC = () => {
       }
     );
   }, []);
+
   const but = () => {
     return (
       <>

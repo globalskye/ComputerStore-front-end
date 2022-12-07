@@ -1,7 +1,7 @@
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useEffect, useState } from 'react';
 import { Button, Card, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material';
-import { cartState } from '../../../atoms';
+import { cartState, selectedCategoriesState, selectedProvidersState } from '../../../atoms';
 import { getAllProductItems } from '../../../services';
 
 type Item = {
@@ -70,6 +70,8 @@ const ShopItem = (item: Item) => {
 
 function ShopItems() {
   const [products, setProduct] = useState<Item[]>();
+  const categories = useRecoilValue(selectedCategoriesState);
+  const providers = useRecoilValue(selectedProvidersState);
 
   useEffect(() => {
     getAllProductItems().then(
@@ -83,7 +85,7 @@ function ShopItems() {
         setProduct(_content);
       }
     );
-  });
+  }, []);
 
   if (!products) {
     return null;
@@ -92,13 +94,22 @@ function ShopItems() {
   return (
     <>
       <Grid container spacing={2}>
-        {products.map((item: Item) => (
-          <>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShopItem key={item.id} {...item} />
+        {products
+          .filter((item) =>
+            categories.length
+              ? categories.map((category) => category.category).includes(item.category)
+              : true
+          )
+          .filter((item) =>
+            providers.length
+              ? providers.map((provider) => provider.provider).includes(item.provider)
+              : true
+          )
+          .map((item: Item) => (
+            <Grid key={item.id} item xs={12} sm={6} md={4} lg={3}>
+              <ShopItem {...item} />
             </Grid>
-          </>
-        ))}
+          ))}
       </Grid>
     </>
   );

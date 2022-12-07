@@ -26,6 +26,7 @@ const AdminOrders: React.FC = () => {
       }
     );
   }, []);
+
   const but = (data: any) => {
     return (
       <>

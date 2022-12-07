@@ -1,24 +1,23 @@
 import * as React from 'react';
-import { Checkbox } from '@mui/material';
+import { Checkbox, FormGroup } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
 
 export interface RadioButtonsGroupProps {
   name: string;
   options: { value: string; label: string }[];
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const RadioButtonsGroup = (props: RadioButtonsGroupProps) => {
+const CheckboxButtonsGroup = (props: RadioButtonsGroupProps) => {
   return (
     <FormControl>
-      <FormLabel id="demo-radio-buttons-group-label">{props.name}</FormLabel>
-      <RadioGroup
-        aria-labelledby="demo-radio-buttons-group-label"
+      <FormLabel id="checkbox-buttons-group-label">{props.name}</FormLabel>
+      <FormGroup
+        aria-labelledby="checkbox-buttons-group-label"
         defaultValue="female"
-        name="radio-buttons-group">
+        onChange={props.onChange}>
         {props.options.map((option) => (
           <FormControlLabel
             key={option.value}
@@ -27,9 +26,9 @@ const RadioButtonsGroup = (props: RadioButtonsGroupProps) => {
             label={option.label}
           />
         ))}
-      </RadioGroup>
+      </FormGroup>
     </FormControl>
   );
 };
 
-export default RadioButtonsGroup;
+export default CheckboxButtonsGroup;

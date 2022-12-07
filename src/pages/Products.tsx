@@ -34,10 +34,6 @@ const AdminProducts: React.FC = () => {
         setRows(response.data);
       },
       (error) => {
-        const _content =
-          (error.response && error.response.data && error.response.data.message) ||
-          error.message ||
-          error.toString();
         console.log(error);
 
         if (error.response && error.response.status === 401) {
@@ -46,6 +42,7 @@ const AdminProducts: React.FC = () => {
       }
     );
   }, []);
+
   const deleteProduct = (id: any) => {
     deleteProductById(id).then(
       (response) => {
