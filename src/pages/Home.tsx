@@ -31,9 +31,11 @@ type Item = {
 };
 
 type Category = {
+  id: number;
   category: string;
 };
 type Provider = {
+  id: number;
   provider: string;
 };
 const Home: React.FC = () => {
