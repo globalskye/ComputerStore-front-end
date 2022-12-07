@@ -1,3 +1,4 @@
+import { type } from 'os';
 import { atom } from 'recoil';
 import UserProfile from '../types/user-profile';
 

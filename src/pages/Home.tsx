@@ -19,6 +19,7 @@ import {
 } from '../services/store.service';
 
 type Item = {
+  count: number;
   id: number;
   name: string;
   image: string;
@@ -28,6 +29,7 @@ type Item = {
   category: string;
   provider: string;
 };
+
 type Category = {
   category: string;
 };
@@ -225,6 +227,7 @@ const Home: React.FC = () => {
                       <div className="d-flex flex-row align-items-center mb-1">
                         <h4 className="mb-1 me-1">${item.price}</h4>
                       </div>
+                      <h6 className="text-success">В наличии: {item.count}</h6>
                       <h6 className="text-success">Гарантия {item.garantia} месяцев</h6>
                       <div className="d-flex flex-column mt-4">
                         <Button
