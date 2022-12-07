@@ -36,3 +36,10 @@ export const getCurrentUser = () => {
   return null;
 };
 // export const getCurrentUserRole = () => {};
+
+export const AuthService = {
+  userRegister,
+  login,
+  logout,
+  getCurrentUser
+};
