@@ -13,6 +13,7 @@ const UserLayout = () => {
   const resetUserProfile = useResetRecoilState(userProfileAtom);
 
   useEffect(() => {
+    console.log('asd');
     const user = AuthService.getCurrentUser();
     if (user) {
       setUserProfile(user);

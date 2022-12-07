@@ -1,6 +1,6 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AdbIcon from '@mui/icons-material/Adb';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -47,7 +47,7 @@ const ShopCart = () => {
   );
 };
 
-const UserProfileMenu = () => {
+const RegisterMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const [userProfile, setUserProfile] = useRecoilState(userProfileAtom);
@@ -90,20 +90,65 @@ const UserProfileMenu = () => {
         }}
         open={Boolean(anchorEl)}
         onClose={handleClose}>
-        {userProfile ? (
-          <MenuItem onClick={handleLogout}>
-            <Typography textAlign="center">LogOut</Typography>
-          </MenuItem>
-        ) : (
-          <Box>
-            <MenuItem component={Link} to={'/login'}>
-              <Typography textAlign="center">LogIn</Typography>
-            </MenuItem>
-            <MenuItem component={Link} to={'/register'}>
-              <Typography textAlign="center">Register</Typography>
-            </MenuItem>
-          </Box>
-        )}
+        <MenuItem component={Link} to={'/login'}>
+          <Typography textAlign="center">LogIn</Typography>
+        </MenuItem>
+        <MenuItem component={Link} to={'/register'}>
+          <Typography textAlign="center">Register</Typography>
+        </MenuItem>
+      </Menu>
+    </>
+  );
+};
+
+const UserProfileMenu = () => {
+  const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  const [userProfile, setUserProfile] = useRecoilState(userProfileAtom);
+
+  const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    AuthService.logout();
+    setUserProfile(undefined);
+    navigate('/login');
+  };
+
+  return (
+    <>
+      <Tooltip title="Open settings">
+        <IconButton onClick={handleOpen} sx={{ p: 0 }}>
+          <Avatar
+            alt="Remy Sharp"
+            src="http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcTbOiWS4nWZXfi1OoF2KauaRMKZDqh6ZgCm_76tvzDjT8572lXfOnQ-Rk1kgFSNXINMNWkPMj_h44ievqQ"
+          />
+        </IconButton>
+      </Tooltip>
+      <Menu
+        sx={{ mt: '45px' }}
+        id="menu-appbar"
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right'
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right'
+        }}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}>
+        <MenuItem onClick={handleLogout}>
+          <Typography textAlign="center">LogOut</Typography>
+        </MenuItem>
       </Menu>
     </>
   );
@@ -210,6 +255,8 @@ const ResponsiveNavMenu = () => {
 };
 
 const ResponsiveAppBar = () => {
+  const [userProfile, setUserProfile] = useRecoilState(userProfileAtom);
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -218,9 +265,7 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 0, pr: 1 }}>
             <ShopCart />
           </Box>
-          <Box sx={{ flexGrow: 0 }}>
-            <UserProfileMenu />
-          </Box>
+          <Box sx={{ flexGrow: 0 }}>{userProfile ? <UserProfileMenu /> : <RegisterMenu />}</Box>
         </Toolbar>
       </Container>
     </AppBar>
