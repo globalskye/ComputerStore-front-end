@@ -53,8 +53,8 @@ const AdminOrders: React.FC = () => {
     },
     {
       name: 'Price $',
-
-      selector: (row: { price: any }) => row.price
+      selector: (row: { price: any }) => row.price,
+      sortable: true
     },
 
     {
@@ -62,8 +62,12 @@ const AdminOrders: React.FC = () => {
       selector: (row: { productName: any }) => row.productName
     },
     {
-      name: 'CustomerName',
-      selector: (row: { customerName: any }) => row.customerName
+      name: 'Count',
+      selector: (row: { productCount: any }) => row.productCount
+    },
+    {
+      name: 'UserName',
+      selector: (row: { userName: any }) => row.userName
     },
     {
       name: 'EmployeeName',

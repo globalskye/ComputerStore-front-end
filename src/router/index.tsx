@@ -4,6 +4,7 @@ import UserLayout from '../layouts/UserLayout';
 import AdminEmployee from '../pages/Employee';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
+import AdminOrders from '../pages/Orders';
 import AdminProducts from '../pages/Products';
 import Register from '../pages/Register';
 import ShopCart from '../pages/ShopCart';
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
     path: '/admin',
     element: <AdminLayout />,
     children: [
+      { path: 'orders', element: <AdminOrders /> },
       { path: 'users', element: <AdminUsers /> },
       { path: 'employee', element: <AdminEmployee /> },
       { path: 'products', element: <AdminProducts /> }

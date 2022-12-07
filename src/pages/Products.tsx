@@ -58,6 +58,11 @@ const AdminProducts: React.FC = () => {
       sortable: true
     },
     {
+      name: 'Count',
+      selector: (row: { count: any }) => row.count,
+      sortable: true
+    },
+    {
       name: 'Image',
 
       selector: (row: { image: any }) => row.image,
