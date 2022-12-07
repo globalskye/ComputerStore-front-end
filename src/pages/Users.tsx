@@ -31,9 +31,6 @@ const AdminUsers: React.FC = () => {
   const but = (id: number) => {
     return (
       <>
-        <button style={{ padding: '1px', borderRadius: '5px', margin: '4px' }}>
-          <FiEdit3 />
-        </button>
         <button
           style={{ padding: '1px', borderRadius: '5px', margin: '4px' }}
           onClick={() => {

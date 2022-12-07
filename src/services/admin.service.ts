@@ -13,3 +13,6 @@ export const getBoard = (board: string) => {
 export const deleteUserById = (id: number) => {
   return axios.delete(API_URL + 'users/' + id, { headers: authHeader() });
 };
+export const deleteProductById = (id: number) => {
+  return axios.delete(API_URL + 'product/' + id, { headers: authHeader() });
+};
