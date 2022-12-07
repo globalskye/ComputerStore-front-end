@@ -95,14 +95,14 @@ const UserProfileMenu = () => {
             <Typography textAlign="center">LogOut</Typography>
           </MenuItem>
         ) : (
-          <>
+          <Box>
             <MenuItem component={Link} to={'/login'}>
               <Typography textAlign="center">LogIn</Typography>
             </MenuItem>
             <MenuItem component={Link} to={'/register'}>
               <Typography textAlign="center">Register</Typography>
             </MenuItem>
-          </>
+          </Box>
         )}
       </Menu>
     </>
