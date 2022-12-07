@@ -42,7 +42,13 @@ const CartItem = ({ item }: Props) => {
   return (
     <>
       <Card sx={{ maxWidth: 345 }}>
-        <CardMedia component="img" height="140" image={item.image} alt="green iguana" />
+        <CardMedia
+          component="img"
+          height="150"
+          sx={{ width: 100, margin: 'auto' }}
+          image={item.image}
+          alt="green iguana"
+        />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {item.name}

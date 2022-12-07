@@ -1,4 +1,4 @@
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useEffect, useState } from 'react';
 import { Button, Card, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 import { cartState } from '../../../atoms';
@@ -17,7 +17,7 @@ type Item = {
 };
 
 const ShopItem = (item: Item) => {
-  const setCart = useSetRecoilState(cartState);
+  const [cart, setCart] = useRecoilState(cartState);
 
   const addToCart = () => {
     setCart((oldCart) => {
@@ -31,9 +31,17 @@ const ShopItem = (item: Item) => {
     });
   };
 
+  const isInCart = cart.find((i) => i.id == item.id);
+
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia component="img" alt="green iguana" height="140" image={item.image} />
+      <CardMedia
+        component="img"
+        height="150"
+        sx={{ width: 100, margin: 'auto' }}
+        image={item.image}
+        alt="green iguana"
+      />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {item.name}
@@ -52,8 +60,8 @@ const ShopItem = (item: Item) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={addToCart} size="small">
-          Add to cart
+        <Button disabled={Boolean(isInCart)} variant="contained" onClick={addToCart} size="small">
+          {isInCart ? 'Already in cart' : 'Add to cart'}
         </Button>
       </CardActions>
     </Card>

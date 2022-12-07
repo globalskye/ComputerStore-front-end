@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Checkbox } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
@@ -22,7 +23,7 @@ const RadioButtonsGroup = (props: RadioButtonsGroupProps) => {
           <FormControlLabel
             key={option.value}
             value={option.value}
-            control={<Radio />}
+            control={<Checkbox />}
             label={option.label}
           />
         ))}

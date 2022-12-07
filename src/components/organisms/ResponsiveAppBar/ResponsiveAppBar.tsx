@@ -1,9 +1,10 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import AdbIcon from '@mui/icons-material/Adb';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Badge } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -15,7 +16,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import { userProfileAtom } from '../../../atoms';
+import { cartState, userProfileAtom } from '../../../atoms';
 import { AuthService } from '../../../services';
 
 export interface NavItem {
@@ -31,12 +32,16 @@ const pages: NavItem[] = [
 ];
 
 const ShopCart = () => {
+  const cart = useRecoilValue(cartState);
+
   return (
     <>
       <Tooltip title="Shop Cart">
-        <IconButton sx={{ p: 0 }} component={Link} to="/shop-cart">
-          <ShoppingCartIcon />
-        </IconButton>
+        <Badge badgeContent={cart.length} color="secondary">
+          <IconButton sx={{ p: 0 }} component={Link} to="/shop-cart">
+            <ShoppingCartIcon />
+          </IconButton>
+        </Badge>
       </Tooltip>
     </>
   );
