@@ -1,5 +1,7 @@
+import { useSetRecoilState } from 'recoil';
 import { useEffect, useState } from 'react';
 import { Button, Card, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+import { cartState } from '../../../atoms';
 import { getAllProductItems } from '../../../services';
 
 type Item = {
@@ -15,6 +17,20 @@ type Item = {
 };
 
 const ShopItem = (item: Item) => {
+  const setCart = useSetRecoilState(cartState);
+
+  const addToCart = () => {
+    setCart((oldCart) => {
+      const isItemInCart = oldCart.find((cartItem) => cartItem.id === item.id);
+      if (isItemInCart) {
+        return oldCart.map((cartItem) =>
+          cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+        );
+      }
+      return [...oldCart, { ...item, quantity: 1 }];
+    });
+  };
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia component="img" alt="green iguana" height="140" image={item.image} />
@@ -36,7 +52,9 @@ const ShopItem = (item: Item) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Add to cart</Button>
+        <Button onClick={addToCart} size="small">
+          Add to cart
+        </Button>
       </CardActions>
     </Card>
   );

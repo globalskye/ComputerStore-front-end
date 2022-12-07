@@ -1,9 +1,11 @@
-export type CartItemType = {
+export interface CartItemType {
   id: number;
-  category: string;
+  name: string;
   description: string;
-  image: string;
   price: number;
-  title: string;
-  amount: number;
-};
+  quantity: number;
+  image: string;
+  garantia: string;
+  category: string;
+  provider: string;
+}

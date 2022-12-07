@@ -3,6 +3,7 @@ import { getAllCategories } from '../../../services';
 import RadioButtonsGroup from '../../molecules/RadioButtonsGroup';
 
 type Category = {
+  id: number;
   category: string;
 };
 
@@ -19,7 +20,7 @@ function CategoriesList() {
       (response) => {
         setCategory(
           response.data.map((item: Category) => ({
-            value: item.category,
+            value: item.id,
             label: item.category
           }))
         );

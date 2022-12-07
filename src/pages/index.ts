@@ -1,2 +1,2 @@
-export { default as ShopCart } from './ShopCart';
-export * from './ShopCart';
+export { default as ShopCart } from './Cart';
+export * from './Cart';

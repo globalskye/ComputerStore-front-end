@@ -1,13 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom';
 import AdminLayout from '../layouts/AdminLayout';
 import UserLayout from '../layouts/UserLayout';
+import ShopCart from '../pages/Cart';
 import AdminEmployee from '../pages/Employee';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import AdminOrders from '../pages/Orders';
 import AdminProducts from '../pages/Products';
 import Register from '../pages/Register';
-import ShopCart from '../pages/ShopCart';
 import AdminUsers from '../pages/Users';
 
 const router = createBrowserRouter([
