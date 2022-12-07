@@ -1,16 +1,20 @@
 import { useRecoilState } from 'recoil';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Box, Button, Grid, Paper, TextField, Typography } from '@mui/material';
 import { cartState } from '../../atoms';
 import CartItem from '../../components/organisms/CartItem/CartItem';
-import { CartItemType } from '../../types/cart-item';
+import { order } from '../../services';
+import { CartItemType, TypeForOrder } from '../../types/cart-item';
 
 interface OrderFormValues {
   address: string;
+  items: CartItemType[];
 }
 
 const CartOrder = () => {
   const [cartItems, setCartItems] = useRecoilState(cartState);
+  const [orderT, setOrderT] = useState<TypeForOrder>();
 
   const calculateTotal = (items: CartItemType[]) =>
     items.reduce((acc, item) => acc + item.quantity * item.price, 0);
@@ -22,6 +26,19 @@ const CartOrder = () => {
   } = useForm<OrderFormValues>();
 
   const onSubmit = (data: OrderFormValues) => {
+    setOrderT({
+      adress: data.address,
+      items: cartItems
+    });
+    order(orderT).then(
+      (response) => {
+        console.log(response.data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    console.log(orderT);
     console.log(data);
     console.log(cartItems);
   };

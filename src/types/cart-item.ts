@@ -9,3 +9,8 @@ export interface CartItemType {
   category: string;
   provider: string;
 }
+
+export interface TypeForOrder {
+  adress: string;
+  items: CartItemType[];
+}
