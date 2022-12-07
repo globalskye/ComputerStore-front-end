@@ -21,3 +21,6 @@ export const addCardItem = (id: number) => {
     { headers: authHeader() }
   );
 };
+export const order = (obj: any) => {
+  return axios.post(API_URL + 'user/order/', obj, { headers: authHeader() });
+};
