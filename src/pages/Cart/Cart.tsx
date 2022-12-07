@@ -59,7 +59,9 @@ const CartOrder = () => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Button variant="contained">Order</Button>
+                <Button type="submit" variant="contained">
+                  Order
+                </Button>
               </Grid>
             </Grid>
           </form>
