@@ -3,6 +3,7 @@ import { getAllProviders } from '../../../services';
 import RadioButtonsGroup from '../../molecules/RadioButtonsGroup';
 
 type Provider = {
+  id: number;
   provider: string;
 };
 
@@ -19,7 +20,7 @@ function ProviderSelector() {
       (response) => {
         setProvider(
           response.data.map((item: Provider) => ({
-            value: item.provider,
+            value: item.id,
             label: item.provider
           }))
         );
