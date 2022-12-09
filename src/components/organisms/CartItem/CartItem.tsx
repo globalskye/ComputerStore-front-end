@@ -56,24 +56,26 @@ const CartItem = ({ item }: Props) => {
           <Typography variant="body2" color="text.secondary">
             {item.description}
           </Typography>
+          <Typography variant="h6" color="warning.main">
+            Цена {item.price} p.
+          </Typography>
         </CardContent>
         <CardActions>
-          <Button onClick={addToCart} variant="contained" size="small">
+          <Button onClick={addToCart} variant="outlined" size="small">
             +
           </Button>
-          <Typography variant="body2" color="text.secondary">
-            {item.quantity}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            ${item.price}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            ${(item.quantity * item.price).toFixed(2)}
-          </Typography>
-          <Button onClick={removeFromCart} variant="contained" size="small">
+          <Button onClick={removeFromCart} variant="outlined" size="small">
             -
           </Button>
+          <Typography variant="body2" color="text.secondary" style={{ marginLeft: '10px' }}>
+            Количество: {item.quantity}
+          </Typography>
         </CardActions>
+        <CardContent>
+          <Typography variant="h6" color="primary.main">
+            Итоговая стоимось: {(item.quantity * item.price).toFixed(2)} p.
+          </Typography>
+        </CardContent>
       </Card>
     </>
   );

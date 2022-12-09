@@ -49,13 +49,13 @@ const ShopItem = (item: Item) => {
         <Typography variant="body2" color="text.secondary">
           {item.description}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {item.price}
+        <Typography variant="h5" color="warning.main">
+          Цена: {item.price} p.
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          В наличии: {item.count}
+        <Typography variant="h6" color="text.secondary">
+          В наличии:{item.count}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="warning.main">
           Гарантия {item.garantia} месяцев
         </Typography>
       </CardContent>

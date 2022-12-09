@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Box, Button, Grid, Paper, TextField, Typography } from '@mui/material';
+import { Box, Button, Grid, Modal, Paper, TextField, Typography } from '@mui/material';
 import { cartState } from '../../atoms';
 import CartItem from '../../components/organisms/CartItem/CartItem';
 import { order } from '../../services';
@@ -11,8 +11,21 @@ interface OrderFormValues {
   address: string;
   items: CartItemType[];
 }
-
+const style = {
+  position: 'absolute' as const,
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4
+};
 const CartOrder = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => setOpen(false);
   const [cartItems, setCartItems] = useRecoilState(cartState);
   const [orderT, setOrderT] = useState<TypeForOrder>();
 
@@ -33,6 +46,7 @@ const CartOrder = () => {
     order(orderT).then(
       (response) => {
         console.log(response.data);
+        setOpen(true);
       },
       (error) => {
         console.log(error);
@@ -44,47 +58,59 @@ const CartOrder = () => {
   };
 
   return (
-    <Paper sx={{ p: 2, margin: 'auto', maxWidth: 500 }} elevation={4}>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Typography variant="h5">You cart</Typography>
-        </Grid>
+    <>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description">
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Order created sucsfully
+          </Typography>
+        </Box>
+      </Modal>
 
-        <Grid item xs={12}>
-          <Typography variant="h5">Total: ${calculateTotal(cartItems).toFixed(2)}</Typography>
-        </Grid>
+      <Paper sx={{ p: 2, margin: 'auto', maxWidth: 500 }} elevation={4}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography variant="h5">
+              Полная стоимость: {calculateTotal(cartItems).toFixed(2)} p.
+            </Typography>
+          </Grid>
 
-        <Grid item xs={12}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <Controller
-                  name="address"
-                  control={control}
-                  defaultValue=""
-                  rules={{ required: true }}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      label="Address"
-                      variant="outlined"
-                      fullWidth
-                      error={!!errors.address}
-                      helperText={errors.address ? 'Address is required' : ''}
-                    />
-                  )}
-                />
+          <Grid item xs={12}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Controller
+                    name="address"
+                    control={control}
+                    defaultValue=""
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        label="Адресс доставки"
+                        variant="outlined"
+                        fullWidth
+                        error={!!errors.address}
+                        helperText={errors.address ? 'Address is required' : ''}
+                      />
+                    )}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button type="submit" variant="contained">
+                    Order
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <Button type="submit" variant="contained">
-                  Order
-                </Button>
-              </Grid>
-            </Grid>
-          </form>
+            </form>
+          </Grid>
         </Grid>
-      </Grid>
-    </Paper>
+      </Paper>
+    </>
   );
 };
 
