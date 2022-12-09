@@ -1,4 +1,4 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Box, Button, Grid, Modal, Paper, TextField, Typography } from '@mui/material';
@@ -27,7 +27,6 @@ const CartOrder = () => {
 
   const handleClose = () => setOpen(false);
   const [cartItems, setCartItems] = useRecoilState(cartState);
-  const [orderT, setOrderT] = useState<TypeForOrder>();
 
   const calculateTotal = (items: CartItemType[]) =>
     items.reduce((acc, item) => acc + item.quantity * item.price, 0);
@@ -39,22 +38,19 @@ const CartOrder = () => {
   } = useForm<OrderFormValues>();
 
   const onSubmit = (data: OrderFormValues) => {
-    setOrderT({
+    order({
       adress: data.address,
       items: cartItems
-    });
-    order(orderT).then(
+    }).then(
       (response) => {
         console.log(response.data);
+        setCartItems([]);
         setOpen(true);
       },
       (error) => {
         console.log(error);
       }
     );
-    console.log(orderT);
-    console.log(data);
-    console.log(cartItems);
   };
 
   return (
@@ -115,7 +111,7 @@ const CartOrder = () => {
 };
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useRecoilState(cartState);
+  const cartItems = useRecoilValue(cartState);
 
   return (
     <Grid container spacing={2}>
