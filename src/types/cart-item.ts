@@ -8,6 +8,7 @@ export interface CartItemType {
   garantia: string;
   category: string;
   provider: string;
+  count: number;
 }
 
 export interface TypeForOrder {

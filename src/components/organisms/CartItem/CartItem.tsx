@@ -61,7 +61,11 @@ const CartItem = ({ item }: Props) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button onClick={addToCart} variant="outlined" size="small">
+          <Button
+            onClick={addToCart}
+            variant="outlined"
+            size="small"
+            disabled={item.quantity >= item.count}>
             +
           </Button>
           <Button onClick={removeFromCart} variant="outlined" size="small">
