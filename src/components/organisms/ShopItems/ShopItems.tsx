@@ -15,6 +15,13 @@ type Item = {
   category: string;
   provider: string;
 };
+const styles = {
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9,
+    marginTop: '30'
+  }
+};
 
 const ShopItem = (item: Item) => {
   const [cart, setCart] = useRecoilState(cartState);
@@ -35,13 +42,9 @@ const ShopItem = (item: Item) => {
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        height="150"
-        sx={{ width: 100, margin: 'auto' }}
-        image={item.image}
-        alt="green iguana"
-      />
+      <div className="text-center">
+        <img src={item.image} className="img-fluid img-thumbnail" />
+      </div>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {item.name}

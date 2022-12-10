@@ -38,6 +38,10 @@ const CartOrder = () => {
   } = useForm<OrderFormValues>();
 
   const onSubmit = (data: OrderFormValues) => {
+    console.log({
+      adress: data.address,
+      items: cartItems
+    });
     order({
       adress: data.address,
       items: cartItems
@@ -62,7 +66,10 @@ const CartOrder = () => {
         aria-describedby="modal-modal-description">
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Order created sucsfully
+            Заказ успешно оформлен.
+          </Typography>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Продавец: Dexter.
           </Typography>
         </Box>
       </Modal>
