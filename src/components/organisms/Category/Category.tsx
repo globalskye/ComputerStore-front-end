@@ -1,13 +1,6 @@
 import { useRecoilState } from 'recoil';
 import { useEffect, useState } from 'react';
-import {
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  FormHelperText,
-  FormLabel
-} from '@mui/material';
+import { Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel } from '@mui/material';
 import { selectedCategoriesState } from '../../../atoms';
 import { getAllCategories } from '../../../services';
 import { Category } from '../../../types/category';

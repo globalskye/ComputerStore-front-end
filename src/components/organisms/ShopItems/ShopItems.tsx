@@ -42,8 +42,8 @@ const ShopItem = (item: Item) => {
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <div className="text-center">
-        <img src={item.image} className="img-fluid img-thumbnail" />
+      <div className="text-center" style={{ textAlign: 'center' }}>
+        <img src={item.image} className="img-fluid img-thumbnail" style={{ height: 150 }} />
       </div>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">

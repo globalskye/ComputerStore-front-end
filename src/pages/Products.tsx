@@ -1,13 +1,261 @@
 import { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
+import { Controller, useForm } from 'react-hook-form';
 import { AiFillDelete } from 'react-icons/ai';
 import { FiEdit3 } from 'react-icons/fi';
+import { FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import EventBus from '../common/EventBus';
+import { getAllCategories, getAllProviders } from '../services';
+import { addProductItem } from '../services/admin-product';
 import { deleteProductById, getBoard } from '../services/admin.service';
+import { Category, Provider } from '../types';
+
+interface ProductFormValues {
+  name: string;
+  image: string;
+  count: string;
+  description: string;
+  price: number;
+  garantia: number;
+  categoryId: number;
+  providerId: number;
+}
+
+const ItemEditor = () => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<ProductFormValues>();
+
+  const [providers, setProvider] = useState<Provider[]>();
+
+  useEffect(() => {
+    getAllProviders().then(
+      (response) => {
+        setProvider(response.data);
+      },
+      (error) => {
+        setProvider([]);
+      }
+    );
+  }, []);
+
+  const [categories, setCategory] = useState<Category[]>();
+
+  useEffect(() => {
+    getAllCategories().then(
+      (response) => {
+        setCategory(response.data);
+      },
+      (error) => {
+        console.log(error);
+
+        setCategory([]);
+      }
+    );
+  }, []);
+
+  const onSubmit = (data: ProductFormValues) => {
+    console.log(data);
+    addProductItem({
+      name: data.name,
+      image: data.image,
+      count: Number(data.count),
+      description: data.description,
+      price: Number(data.price),
+      garantia: Number(data.garantia),
+      categoryId: Number(data.categoryId),
+      providerId: Number(data.providerId)
+    }).then((res) => console.log(res));
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Controller
+            name="name"
+            control={control}
+            defaultValue=""
+            rules={{ required: true }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                fullWidth
+                label="Name"
+                variant="outlined"
+                error={!!errors.name}
+                helperText={errors.name && 'Name is required'}
+              />
+            )}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Controller
+            name="image"
+            control={control}
+            defaultValue=""
+            rules={{ required: true }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                fullWidth
+                label="Image"
+                variant="outlined"
+                error={!!errors.image}
+                helperText={errors.image && 'Image is required'}
+              />
+            )}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Controller
+            name="description"
+            control={control}
+            defaultValue=""
+            rules={{ required: true }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                fullWidth
+                label="Description"
+                variant="outlined"
+                error={!!errors.description}
+                helperText={errors.description && 'Description is required'}
+              />
+            )}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <Controller
+            name="count"
+            control={control}
+            defaultValue=""
+            rules={{ required: true }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                fullWidth
+                label="Count"
+                variant="outlined"
+                inputProps={{
+                  inputMode: 'numeric',
+                  pattern: '[0-9]*',
+                  min: 0
+                }}
+                error={!!errors.count}
+                helperText={errors.count && 'Count is required'}
+              />
+            )}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <Controller
+            name="price"
+            control={control}
+            defaultValue={0}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                fullWidth
+                label="Price"
+                variant="outlined"
+                inputProps={{
+                  inputMode: 'numeric',
+                  pattern: '[0-9]*',
+                  min: 0
+                }}
+                error={!!errors.price}
+                helperText={errors.price && 'Price is required'}
+              />
+            )}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Controller
+            name="garantia"
+            control={control}
+            defaultValue={0}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                fullWidth
+                label="Garantia"
+                variant="outlined"
+                inputProps={{
+                  inputMode: 'numeric',
+                  pattern: '[0-9]*',
+                  min: 0
+                }}
+                error={!!errors.garantia}
+                helperText={errors.garantia && 'Garantia is required'}
+              />
+            )}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <Controller
+            name="categoryId"
+            control={control}
+            defaultValue={0}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                <Select
+                  {...field}
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label="Category">
+                  {categories?.map((provider) => (
+                    <MenuItem key={provider.id} value={provider.id}>
+                      {provider.category}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            )}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <Controller
+            name="providerId"
+            control={control}
+            defaultValue={0}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Provider</InputLabel>
+                <Select
+                  {...field}
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label="Provider">
+                  {providers?.map((provider) => (
+                    <MenuItem key={provider.id} value={provider.id}>
+                      {provider.provider}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            )}
+          />
+        </Grid>
+      </Grid>
+
+      <Grid item xs={12}>
+        <Button type="submit">Submit</Button>
+      </Grid>
+    </form>
+  );
+};
 
 const AdminProducts: React.FC = () => {
   const [rows, setRows] = useState<any[]>([{ id: 1 }]);
@@ -21,7 +269,7 @@ const AdminProducts: React.FC = () => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: 600,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -128,9 +376,7 @@ const AdminProducts: React.FC = () => {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Text in a modal
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <ItemEditor />
         </Box>
       </Modal>
       <DataTable pagination columns={columns} data={rows} />

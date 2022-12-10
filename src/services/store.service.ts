@@ -1,7 +1,6 @@
 import axios from 'axios';
+import { API_URL } from '../constants';
 import authHeader from './auth-header';
-
-const API_URL = 'http://localhost:8080/';
 
 export const getAllProductItems = () => {
   return axios.get(API_URL + 'product/');

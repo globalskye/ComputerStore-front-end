@@ -28,14 +28,7 @@ const NestedMenu = ({ name, subItems }: { name: string; subItems: MenuItem[] }) 
 
   return (
     <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      <List
-        component="nav"
-        aria-labelledby="nested-list-subheader"
-        subheader={
-          <ListSubheader component="div" id="nested-list-subheader">
-            {name}
-          </ListSubheader>
-        }>
+      <List component="nav" aria-labelledby="nested-list-subheader">
         <ListItemButton onClick={handleClick}>
           <ListItemIcon>
             <InboxIcon />
