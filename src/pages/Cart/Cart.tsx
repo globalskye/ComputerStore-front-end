@@ -49,6 +49,7 @@ const CartOrder = () => {
       (response) => {
         console.log(response.data);
         setCartItems([]);
+        localStorage.set('cart');
         setOpen(true);
       },
       (error) => {

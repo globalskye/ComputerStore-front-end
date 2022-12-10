@@ -1,4 +1,5 @@
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -13,7 +14,7 @@ type Props = {
 };
 
 const CartItem = ({ item }: Props) => {
-  const setCart = useSetRecoilState(cartState);
+  const [cart, setCart] = useRecoilState(cartState);
 
   const addToCart = () => {
     setCart((oldCart) => {
@@ -26,6 +27,10 @@ const CartItem = ({ item }: Props) => {
       return [...oldCart, { ...item, quantity: 1 }];
     });
   };
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
 
   const removeFromCart = () => {
     setCart((oldCart) => {

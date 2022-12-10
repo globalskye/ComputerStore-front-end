@@ -36,6 +36,7 @@ const ShopItem = (item: Item) => {
       }
       return [...oldCart, { ...item, quantity: 1 }];
     });
+    localStorage.setItem('cart', JSON.stringify(cart));
   };
 
   const isInCart = cart.find((i) => i.id == item.id);
